@@ -195,6 +195,9 @@ display:none;
 #bottom{
 display:none;
 }
+#loadInput{
+display:none;
+}
 @media(max-width:700px){
 #top{
 height:54px;
@@ -325,7 +328,9 @@ grid-template-columns:repeat(2,1fr);
 <div id="top">
 <div id="title">Hiro 3D Model Maker</div>
 <button class="topButton" id="resetButton">視点</button>
+<button class="topButton" id="loadButton">ロード</button>
 <button class="topButton" id="exportButton">OBJ保存</button>
+<input id="loadInput" type="file" accept=".obj,text/plain">
 </div>
 
 <div id="main">
@@ -607,7 +612,7 @@ render();
 window.addEventListener("resize",resize);
 
 function v(x,y,z){
-return {x:x,y:y,z:z};
+return{x:x,y:y,z:z};
 }
 
 function face(a,b,c,d){
@@ -618,7 +623,7 @@ function geometry(type){
 
 if(type==="box"){
 
-return {
+return{
 vertices:[
 v(-.5,-.5,-.5),v(.5,-.5,-.5),
 v(.5,.5,-.5),v(-.5,.5,-.5),
@@ -692,7 +697,7 @@ faces.push(face(a,b,c,d));
 
 }
 
-return {vertices,faces};
+return{vertices,faces};
 
 }
 
@@ -706,25 +711,28 @@ for(let i=0;i<seg;i++){
 
 const a=i/seg*Math.PI*2;
 
-vertices.push(v(
+vertices.push(
+v(
 Math.cos(a)*.6,
 -.7,
 Math.sin(a)*.6
-));
+)
+);
 
 }
 
 for(let i=0;i<seg;i++){
 
 const a=i/seg*Math.PI*2;
-
 const r=type==="cone"?0:.6;
 
-vertices.push(v(
+vertices.push(
+v(
 Math.cos(a)*r,
 .7,
 Math.sin(a)*r
-));
+)
+);
 
 }
 
@@ -741,7 +749,7 @@ faces.push(face(seg*2+1,seg+n,seg+i));
 
 }
 
-return {vertices,faces};
+return{vertices,faces};
 
 }
 
@@ -749,7 +757,6 @@ if(type==="torus"){
 
 const vertices=[];
 const faces=[];
-
 const aSeg=28;
 const bSeg=10;
 
@@ -760,14 +767,15 @@ const a=i/aSeg*Math.PI*2;
 for(let j=0;j<bSeg;j++){
 
 const b=j/bSeg*Math.PI*2;
-
 const r=.75+.2*Math.cos(b);
 
-vertices.push(v(
+vertices.push(
+v(
 Math.cos(a)*r,
 Math.sin(b)*.2,
 Math.sin(a)*r
-));
+)
+);
 
 }
 
@@ -780,24 +788,26 @@ for(let j=0;j<bSeg;j++){
 const ni=(i+1)%aSeg;
 const nj=(j+1)%bSeg;
 
-faces.push(face(
+faces.push(
+face(
 i*bSeg+j,
 ni*bSeg+j,
 ni*bSeg+nj,
 i*bSeg+nj
-));
+)
+);
 
 }
 
 }
 
-return {vertices,faces};
+return{vertices,faces};
 
 }
 
 if(type==="prism"){
 
-return {
+return{
 vertices:[
 v(-.6,-.5,-.5),
 v(.6,-.5,-.5),
@@ -819,7 +829,7 @@ face(2,0,3,5)
 
 if(type==="pyramid"){
 
-return {
+return{
 vertices:[
 v(-.6,-.5,-.6),
 v(.6,-.5,-.6),
@@ -840,7 +850,7 @@ face(3,0,4)
 
 if(type==="plane"){
 
-return {
+return{
 vertices:[
 v(-1,0,-1),
 v(1,0,-1),
@@ -873,6 +883,7 @@ if(yy<-.5){
 
 const q=(yy+.5)/.5;
 const a=q*Math.PI/2;
+
 cy=-.5-Math.cos(a)*.45;
 r=Math.sin(a)*.45;
 
@@ -880,6 +891,7 @@ r=Math.sin(a)*.45;
 
 const q=(yy-.5)/.5;
 const a=q*Math.PI/2;
+
 cy=.5+Math.sin(a)*.45;
 r=Math.cos(a)*.45;
 
@@ -894,11 +906,13 @@ for(let x=0;x<seg;x++){
 
 const a=x/seg*Math.PI*2;
 
-vertices.push(v(
+vertices.push(
+v(
 Math.cos(a)*r,
 cy,
 Math.sin(a)*r
-));
+)
+);
 
 }
 
@@ -910,24 +924,26 @@ for(let x=0;x<seg;x++){
 
 const n=(x+1)%seg;
 
-faces.push(face(
+faces.push(
+face(
 y*seg+x,
 y*seg+n,
 (y+1)*seg+n,
 (y+1)*seg+x
-));
+)
+);
 
 }
 
 }
 
-return {vertices,faces};
+return{vertices,faces};
 
 }
 
 if(type==="tetra"){
 
-return {
+return{
 vertices:[
 v(0,.7,0),
 v(-.65,-.4,-.45),
@@ -946,7 +962,7 @@ face(1,3,2)
 
 if(type==="octa"){
 
-return {
+return{
 vertices:[
 v(0,.8,0),
 v(0,-.8,0),
@@ -990,11 +1006,8 @@ geometry:geometry(type)
 };
 
 objects.push(obj);
-
 selectObject(obj);
-
 updateLists();
-
 render();
 
 }
@@ -1020,7 +1033,6 @@ mobile.innerHTML="";
 if(objects.length===0){
 
 mobile.innerHTML='<div style="color:#888;font-size:12px">パーツがありません。</div>';
-
 return;
 
 }
@@ -1062,21 +1074,15 @@ mobile.appendChild(b);
 }
 
 function val(id){
-
 return parseFloat(document.getElementById(id).value);
-
 }
 
 function mval(id){
-
 return parseFloat(document.getElementById("m_"+id).value);
-
 }
 
 function safe(n,f){
-
 return Number.isFinite(n)?n:f;
-
 }
 
 function updateEditor(){
@@ -1145,8 +1151,7 @@ function applyDesktop(){
 
 if(!selected)return;
 
-selected.name=
-document.getElementById("name").value||"Object";
+selected.name=document.getElementById("name").value||"Object";
 
 selected.position.x=safe(val("x"),selected.position.x);
 selected.position.y=safe(val("y"),selected.position.y);
@@ -1171,8 +1176,7 @@ function applyMobile(){
 
 if(!selected)return;
 
-selected.name=
-document.getElementById("m_name").value||"Object";
+selected.name=document.getElementById("m_name").value||"Object";
 
 selected.position.x=safe(mval("x"),selected.position.x);
 selected.position.y=safe(mval("y"),selected.position.y);
@@ -1276,7 +1280,7 @@ ny=x*sz+y*cz;
 x=nx;
 y=ny;
 
-return {
+return{
 x:x+o.position.x,
 y:y+o.position.y,
 z:z+o.position.z
@@ -1298,7 +1302,7 @@ const sp=Math.sin(camera.pitch);
 let y=p.y*cp-z*sp;
 z=p.y*sp+z*cp;
 
-return {
+return{
 x:x,
 y:y,
 z:z
@@ -1312,13 +1316,11 @@ const c=cameraPoint(p);
 
 const depth=c.z+camera.distance;
 
-if(depth<=.1){
-return null;
-}
+if(depth<=.1)return null;
 
 const focal=Math.min(W,H)*.9;
 
-return {
+return{
 x:W/2+c.x*focal/depth,
 y:H/2-c.y*focal/depth,
 depth:depth
@@ -1338,7 +1340,7 @@ r=Math.max(0,Math.min(255,Math.round(r*amount)));
 g=Math.max(0,Math.min(255,Math.round(g*amount)));
 b=Math.max(0,Math.min(255,Math.round(b*amount)));
 
-return "rgb("+r+","+g+","+b+")";
+return"rgb("+r+","+g+","+b+")";
 
 }
 
@@ -1352,7 +1354,7 @@ const vx=c.x-a.x;
 const vy=c.y-a.y;
 const vz=c.z-a.z;
 
-return {
+return{
 x:uy*vz-uz*vy,
 y:uz*vx-ux*vz,
 z:ux*vy-uy*vx
@@ -1392,7 +1394,7 @@ const points=f.map(function(i){
 return projected[i];
 });
 
-if(points.some(function(p){return !p;}))return;
+if(points.some(function(p){return!p;}))return;
 
 let depth=0;
 
@@ -1414,11 +1416,7 @@ n.x/=len;
 n.y/=len;
 n.z/=len;
 
-const light=
-Math.max(
-.18,
-n.x*.35+n.y*.75+n.z*.5
-);
+const light=Math.max(.18,n.x*.35+n.y*.75+n.z*.5);
 
 drawFaces.push({
 object:o,
@@ -1456,8 +1454,7 @@ amount+=.12;
 ctx.fillStyle=shade(f.object.color,amount);
 ctx.fill();
 
-ctx.strokeStyle=
-f.object===selected?
+ctx.strokeStyle=f.object===selected?
 "rgba(255,255,255,.75)":
 "rgba(0,0,0,.35)";
 
@@ -1468,9 +1465,7 @@ ctx.stroke();
 });
 
 if(selected){
-
 drawSelection(selected);
-
 }
 
 }
@@ -1478,7 +1473,6 @@ drawSelection(selected);
 function drawGrid(){
 
 const size=10;
-const step=1;
 
 for(let i=-size;i<=size;i++){
 
@@ -1534,9 +1528,11 @@ ctx.stroke();
 
 function drawSelection(o){
 
-const pts=o.geometry.vertices.map(function(p){
+const pts=o.geometry.vertices
+.map(function(p){
 return project(rotatePoint(p,o));
-}).filter(Boolean);
+})
+.filter(Boolean);
 
 if(!pts.length)return;
 
@@ -1558,6 +1554,7 @@ ctx.save();
 
 ctx.strokeStyle="rgba(255,255,255,.5)";
 ctx.setLineDash([5,5]);
+
 ctx.strokeRect(
 minX-5,
 minY-5,
@@ -1619,17 +1616,7 @@ button.dataset.close
 let pointers=new Map();
 let lastSingle=null;
 let pinchStart=0;
-let pinchDistance=0;
 let pinchCamera=0;
-
-function distance(a,b){
-
-return Math.hypot(
-a.clientX-b.clientX,
-a.clientY-b.clientY
-);
-
-}
 
 canvas.addEventListener("pointerdown",function(e){
 
@@ -1652,12 +1639,11 @@ if(pointers.size===2){
 const a=[...pointers.values()][0];
 const b=[...pointers.values()][1];
 
-pinchDistance=Math.hypot(
+pinchStart=Math.hypot(
 a.x-b.x,
 a.y-b.y
 );
 
-pinchStart=pinchDistance;
 pinchCamera=camera.distance;
 
 }
@@ -1680,11 +1666,14 @@ y:e.clientY
 if(pointers.size===1){
 
 if(!lastSingle){
+
 lastSingle={
 x:e.clientX,
 y:e.clientY
 };
+
 return;
+
 }
 
 const dx=e.clientX-lastSingle.x;
@@ -1720,8 +1709,7 @@ arr[0].y-arr[1].y
 
 if(pinchStart>0){
 
-camera.distance=
-Math.max(
+camera.distance=Math.max(
 2,
 Math.min(
 30,
@@ -1763,14 +1751,6 @@ y:p.y
 
 canvas.addEventListener("pointerup",pointerEnd);
 canvas.addEventListener("pointercancel",pointerEnd);
-canvas.addEventListener("pointerleave",function(e){
-
-if(e.pointerType==="mouse"){
-pointers.delete(e.pointerId);
-lastSingle=null;
-}
-
-});
 
 canvas.addEventListener("wheel",function(e){
 
@@ -1787,9 +1767,20 @@ render();
 
 },{passive:false});
 
-canvas.addEventListener("dblclick",function(){
+canvas.addEventListener("dblclick",resetView);
 
-resetView();
+let clickStart=null;
+
+canvas.addEventListener("pointerdown",function(e){
+
+if(pointers.size===1){
+
+clickStart={
+x:e.clientX,
+y:e.clientY
+};
+
+}
 
 });
 
@@ -1804,8 +1795,7 @@ const center=project(o.position);
 
 if(!center)return;
 
-const size=
-Math.max(
+const size=Math.max(
 25,
 Math.min(
 120,
@@ -1832,21 +1822,6 @@ selectObject(best);
 }
 
 }
-
-let clickStart=null;
-
-canvas.addEventListener("pointerdown",function(e){
-
-if(pointers.size===1){
-
-clickStart={
-x:e.clientX,
-y:e.clientY
-};
-
-}
-
-});
 
 canvas.addEventListener("pointerup",function(e){
 
@@ -1883,8 +1858,7 @@ o.geometry.vertices.forEach(function(p){
 
 const q=rotatePoint(p,o);
 
-output+=
-"v "+
+output+="v "+
 q.x.toFixed(6)+" "+
 q.y.toFixed(6)+" "+
 q.z.toFixed(6)+"\n";
@@ -1896,9 +1870,7 @@ o.geometry.faces.forEach(function(f){
 output+="f ";
 
 f.forEach(function(i){
-
 output+=(i+offset)+" ";
-
 });
 
 output+="\n";
@@ -1924,9 +1896,7 @@ a.href=url;
 a.download="hiro_3d_model.obj";
 
 document.body.appendChild(a);
-
 a.click();
-
 a.remove();
 
 setTimeout(function(){
@@ -1935,12 +1905,218 @@ URL.revokeObjectURL(url);
 
 }
 
-document.getElementById("exportButton")
-.onclick=exportOBJ;
+document.getElementById("exportButton").onclick=exportOBJ;
+
+function clearObjects(){
+
+objects=[];
+selected=null;
+counter=1;
+
+updateLists();
+updateEditor();
+render();
+
+}
+
+function loadOBJ(text){
+
+const vertices=[];
+const loadedFaces=[];
+const loadedObjects=[];
+
+const lines=text.split(/\r?\n/);
+
+let currentName="Model";
+
+for(let line of lines){
+
+line=line.trim();
+
+if(!line)continue;
+
+if(line.startsWith("o ")){
+
+currentName=line.substring(2).trim()||"Model";
+
+continue;
+
+}
+
+if(line.startsWith("v ")){
+
+const p=line.split(/\s+/);
+
+if(p.length>=4){
+
+vertices.push(
+v(
+parseFloat(p[1])||0,
+parseFloat(p[2])||0,
+parseFloat(p[3])||0
+)
+);
+
+}
+
+continue;
+
+}
+
+if(line.startsWith("f ")){
+
+const p=line.substring(2).trim().split(/\s+/);
+
+const ids=[];
+
+for(const item of p){
+
+const first=item.split("/")[0];
+let index=parseInt(first,10);
+
+if(!Number.isFinite(index))continue;
+
+if(index<0){
+index=vertices.length+index;
+}else{
+index=index-1;
+}
+
+if(index>=0&&index<vertices.length){
+ids.push(index);
+}
+
+}
+
+if(ids.length>=3){
+
+for(let i=1;i<ids.length-1;i++){
+
+loadedFaces.push(
+face(
+ids[0],
+ids[i],
+ids[i+1]
+)
+);
+
+}
+
+}
+
+}
+
+}
+
+if(vertices.length===0||loadedFaces.length===0){
+
+alert("OBJファイルを読み込めませんでした。");
+return;
+
+}
+
+const min=v(Infinity,Infinity,Infinity);
+const max=v(-Infinity,-Infinity,-Infinity);
+
+vertices.forEach(function(p){
+
+min.x=Math.min(min.x,p.x);
+min.y=Math.min(min.y,p.y);
+min.z=Math.min(min.z,p.z);
+
+max.x=Math.max(max.x,p.x);
+max.y=Math.max(max.y,p.y);
+max.z=Math.max(max.z,p.z);
+
+});
+
+const center=v(
+(min.x+max.x)/2,
+(min.y+max.y)/2,
+(min.z+max.z)/2
+);
+
+const size=Math.max(
+max.x-min.x,
+max.y-min.y,
+max.z-min.z
+);
+
+const scale=size>0?2/size:1;
+
+const normalizedVertices=vertices.map(function(p){
+
+return v(
+(p.x-center.x)*scale,
+(p.y-center.y)*scale,
+(p.z-center.z)*scale
+);
+
+});
+
+const obj={
+type:"box",
+name:currentName||"ロードモデル",
+position:v(0,0,0),
+rotation:v(0,0,0),
+scale:v(1,1,1),
+color:"#4da3ff",
+geometry:{
+vertices:normalizedVertices,
+faces:loadedFaces
+}
+};
+
+objects.push(obj);
+selected=obj;
+counter++;
+
+updateLists();
+updateEditor();
+resetView();
+render();
+
+}
+
+document.getElementById("loadButton").onclick=function(){
+
+document.getElementById("loadInput").value="";
+document.getElementById("loadInput").click();
+
+};
+
+document.getElementById("loadInput").addEventListener("change",function(){
+
+const file=this.files&&this.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(){
+
+try{
+
+clearObjects();
+loadOBJ(String(reader.result));
+
+}catch(e){
+
+alert("OBJファイルを読み込めませんでした。");
+
+}
+
+};
+
+reader.onerror=function(){
+alert("ファイルの読み込みに失敗しました。");
+};
+
+reader.readAsText(file);
+
+});
 
 resize();
-
-addObject("box");
 
 })();
 </script>
