@@ -1916,9 +1916,9 @@ return Number(n.toFixed(6));
 
 function createBlockbenchUV(size){
 
-const sx=Math.max(1,Math.round(Math.abs(size[0])));
-const sy=Math.max(1,Math.round(Math.abs(size[1])));
-const sz=Math.max(1,Math.round(Math.abs(size[2])));
+const sx=Math.max(1,Math.ceil(Math.abs(size[0])));
+const sy=Math.max(1,Math.ceil(Math.abs(size[1])));
+const sz=Math.max(1,Math.ceil(Math.abs(size[2])));
 
 return{
 north:{
@@ -1949,6 +1949,294 @@ uv_size:[-sx,-sz]
 
 }
 
+function pointInsideMesh(point,triangles){
+
+let intersections=0;
+
+for(let i=0;i<triangles.length;i++){
+
+const t=triangles[i];
+
+const a=t[0];
+const b=t[1];
+const c=t[2];
+
+const dirX=1;
+const dirY=0;
+const dirZ=0;
+
+const edge1={
+x:b.x-a.x,
+y:b.y-a.y,
+z:b.z-a.z
+};
+
+const edge2={
+x:c.x-a.x,
+y:c.y-a.y,
+z:c.z-a.z
+};
+
+const h={
+x:dirY*edge2.z-dirZ*edge2.y,
+y:dirZ*edge2.x-dirX*edge2.z,
+z:dirX*edge2.y-dirY*edge2.x
+};
+
+const det=
+edge1.x*h.x+
+edge1.y*h.y+
+edge1.z*h.z;
+
+if(Math.abs(det)<0.000001)continue;
+
+const inv=1/det;
+
+const s={
+x:point.x-a.x,
+y:point.y-a.y,
+z:point.z-a.z
+};
+
+const u=inv*(
+s.x*h.x+
+s.y*h.y+
+s.z*h.z
+);
+
+if(u<0||u>1)continue;
+
+const q={
+x:s.y*edge1.z-s.z*edge1.y,
+y:s.z*edge1.x-s.x*edge1.z,
+z:s.x*edge1.y-s.y*edge1.x
+};
+
+const vv=inv*(
+dirX*q.x+
+dirY*q.y+
+dirZ*q.z
+);
+
+if(vv<0||u+vv>1)continue;
+
+const distance=inv*(
+edge2.x*q.x+
+edge2.y*q.y+
+edge2.z*q.z
+);
+
+if(distance>0.000001){
+intersections++;
+}
+
+}
+
+return intersections%2===1;
+
+}
+
+function makeVoxelCubes(o){
+
+const world=o.geometry.vertices.map(function(p){
+return rotatePoint(p,o);
+});
+
+if(!world.length)return[];
+
+let minX=Infinity;
+let minY=Infinity;
+let minZ=Infinity;
+
+let maxX=-Infinity;
+let maxY=-Infinity;
+let maxZ=-Infinity;
+
+world.forEach(function(p){
+
+minX=Math.min(minX,p.x);
+minY=Math.min(minY,p.y);
+minZ=Math.min(minZ,p.z);
+
+maxX=Math.max(maxX,p.x);
+maxY=Math.max(maxY,p.y);
+maxZ=Math.max(maxZ,p.z);
+
+});
+
+if(o.type==="box"||o.type==="box2"){
+
+return[{
+origin:[
+roundJSON(minX),
+roundJSON(minY),
+roundJSON(minZ)
+],
+size:[
+roundJSON(maxX-minX),
+roundJSON(maxY-minY),
+roundJSON(maxZ-minZ)
+],
+uv:createBlockbenchUV([
+maxX-minX,
+maxY-minY,
+maxZ-minZ
+])
+}];
+
+}
+
+if(o.type==="plane"){
+
+const thickness=.05;
+
+const sizeX=Math.max(.05,maxX-minX);
+const sizeZ=Math.max(.05,maxZ-minZ);
+
+return[{
+origin:[
+roundJSON(minX),
+roundJSON(minY-thickness/2),
+roundJSON(minZ)
+],
+size:[
+roundJSON(sizeX),
+thickness,
+roundJSON(sizeZ)
+],
+uv:createBlockbenchUV([
+sizeX,
+thickness,
+sizeZ
+])
+}];
+
+}
+
+const triangles=[];
+
+o.geometry.faces.forEach(function(f){
+
+if(f.length<3)return;
+
+const a=world[f[0]];
+const b=world[f[1]];
+const c=world[f[2]];
+
+triangles.push([a,b,c]);
+
+if(f.length===4){
+
+const d=world[f[3]];
+
+triangles.push([a,c,d]);
+
+}
+
+});
+
+const largest=Math.max(
+maxX-minX,
+maxY-minY,
+maxZ-minZ
+);
+
+const voxelSize=Math.max(
+0.08,
+Math.min(
+0.2,
+largest/10
+)
+);
+
+const startX=Math.floor(minX/voxelSize)*voxelSize;
+const startY=Math.floor(minY/voxelSize)*voxelSize;
+const startZ=Math.floor(minZ/voxelSize)*voxelSize;
+
+const endX=Math.ceil(maxX/voxelSize)*voxelSize;
+const endY=Math.ceil(maxY/voxelSize)*voxelSize;
+const endZ=Math.ceil(maxZ/voxelSize)*voxelSize;
+
+const cubes=[];
+
+const maxVoxels=5000;
+
+let count=0;
+
+for(let x=startX;x<endX;x+=voxelSize){
+
+for(let y=startY;y<endY;y+=voxelSize){
+
+for(let z=startZ;z<endZ;z+=voxelSize){
+
+if(count>=maxVoxels)break;
+
+const center={
+x:x+voxelSize/2,
+y:y+voxelSize/2,
+z:z+voxelSize/2
+};
+
+if(pointInsideMesh(center,triangles)){
+
+cubes.push({
+origin:[
+roundJSON(x),
+roundJSON(y),
+roundJSON(z)
+],
+size:[
+roundJSON(voxelSize),
+roundJSON(voxelSize),
+roundJSON(voxelSize)
+],
+uv:createBlockbenchUV([
+voxelSize,
+voxelSize,
+voxelSize
+])
+});
+
+count++;
+
+}
+
+}
+
+if(count>=maxVoxels)break;
+
+}
+
+if(count>=maxVoxels)break;
+
+}
+
+if(!cubes.length){
+
+const sx=Math.max(.05,maxX-minX);
+const sy=Math.max(.05,maxY-minY);
+const sz=Math.max(.05,maxZ-minZ);
+
+cubes.push({
+origin:[
+roundJSON(minX),
+roundJSON(minY),
+roundJSON(minZ)
+],
+size:[
+roundJSON(sx),
+roundJSON(sy),
+roundJSON(sz)
+],
+uv:createBlockbenchUV([sx,sy,sz])
+});
+
+}
+
+return cubes;
+
+}
+
 function exportJSON(){
 
 if(objects.length===0){
@@ -1970,29 +2258,11 @@ let maxZ=-Infinity;
 
 objects.forEach(function(o){
 
-const points=o.geometry.vertices.map(function(p){
+const world=o.geometry.vertices.map(function(p){
 return rotatePoint(p,o);
 });
 
-if(!points.length)return;
-
-let objectMinX=Infinity;
-let objectMinY=Infinity;
-let objectMinZ=Infinity;
-
-let objectMaxX=-Infinity;
-let objectMaxY=-Infinity;
-let objectMaxZ=-Infinity;
-
-points.forEach(function(p){
-
-objectMinX=Math.min(objectMinX,p.x);
-objectMinY=Math.min(objectMinY,p.y);
-objectMinZ=Math.min(objectMinZ,p.z);
-
-objectMaxX=Math.max(objectMaxX,p.x);
-objectMaxY=Math.max(objectMaxY,p.y);
-objectMaxZ=Math.max(objectMaxZ,p.z);
+world.forEach(function(p){
 
 minX=Math.min(minX,p.x);
 minY=Math.min(minY,p.y);
@@ -2004,24 +2274,10 @@ maxZ=Math.max(maxZ,p.z);
 
 });
 
-const origin=[
-roundJSON(objectMinX),
-roundJSON(objectMinY),
-roundJSON(objectMinZ)
-];
+const objectCubes=makeVoxelCubes(o);
 
-const size=[
-roundJSON(objectMaxX-objectMinX),
-roundJSON(objectMaxY-objectMinY),
-roundJSON(objectMaxZ-objectMinZ)
-];
-
-cubes.push({
-
-origin:origin,
-size:size,
-uv:createBlockbenchUV(size)
-
+objectCubes.forEach(function(cube){
+cubes.push(cube);
 });
 
 });
