@@ -16,7 +16,7 @@ margin:0;
 width:100%;
 height:100%;
 overflow:hidden;
-background:#0d0d0f;
+background:#0d0d10;
 color:#fff;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -28,14 +28,12 @@ font:inherit;
 button{
 border:0;
 color:#fff;
-background:#29292d;
+background:#29292e;
 border-radius:11px;
-font-weight:600;
 }
 
 button:active{
-transform:scale(.97);
-background:#444;
+transform:scale(.96);
 }
 
 #app{
@@ -61,7 +59,6 @@ z-index:20;
 font-size:17px;
 font-weight:800;
 margin-right:auto;
-white-space:nowrap;
 }
 
 .topButton{
@@ -70,17 +67,17 @@ padding:0 13px;
 }
 
 #main{
-display:flex;
 flex:1;
 min-height:0;
+display:flex;
 }
 
 #left{
-width:205px;
+width:210px;
 flex-shrink:0;
+padding:12px;
 background:#18181b;
 border-right:1px solid #303035;
-padding:12px;
 overflow:auto;
 }
 
@@ -90,15 +87,14 @@ flex:1;
 min-width:0;
 min-height:0;
 background:#101014;
-overflow:hidden;
 }
 
 #right{
-width:255px;
+width:260px;
 flex-shrink:0;
+padding:12px;
 background:#18181b;
 border-left:1px solid #303035;
-padding:12px;
 overflow:auto;
 }
 
@@ -107,21 +103,8 @@ position:absolute;
 inset:0;
 width:100%;
 height:100%;
+display:block;
 touch-action:none;
-}
-
-#hint{
-position:absolute;
-left:50%;
-bottom:15px;
-transform:translateX(-50%);
-padding:9px 14px;
-border-radius:12px;
-background:rgba(0,0,0,.65);
-font-size:11px;
-color:#bbb;
-white-space:nowrap;
-pointer-events:none;
 }
 
 .sectionTitle{
@@ -139,17 +122,17 @@ gap:7px;
 
 .addButton{
 height:68px;
-font-size:10px;
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 gap:3px;
+font-size:10px;
 background:#252529;
 }
 
 .addIcon{
-font-size:23px;
+font-size:24px;
 }
 
 #objectList{
@@ -160,7 +143,7 @@ gap:6px;
 
 .object{
 width:100%;
-min-height:44px;
+min-height:43px;
 padding:8px 10px;
 text-align:left;
 background:#252529;
@@ -168,8 +151,8 @@ border:1px solid transparent;
 }
 
 .object.selected{
-background:#3a3a40;
-border-color:#777;
+background:#414148;
+border-color:#888;
 }
 
 .editorTitle{
@@ -188,7 +171,7 @@ line-height:1.6;
 }
 
 .field{
-margin-bottom:13px;
+margin-bottom:12px;
 }
 
 .field label{
@@ -196,36 +179,31 @@ display:block;
 font-size:11px;
 font-weight:700;
 color:#999;
-margin-bottom:6px;
+margin-bottom:5px;
 }
 
 .field input{
 width:100%;
 height:40px;
 padding:0 9px;
+background:#252529;
 border:1px solid #3d3d43;
 border-radius:9px;
-background:#252529;
 color:#fff;
 outline:none;
 }
 
 .row{
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
+grid-template-columns:repeat(3,1fr);
 gap:6px;
-}
-
-#color,
-#m_color{
-padding:4px;
 }
 
 .delete{
 width:100%;
 height:44px;
+background:#8e2929;
 margin-top:5px;
-background:#8d2929;
 }
 
 .mobilePanel{
@@ -236,7 +214,22 @@ display:none;
 display:none;
 }
 
-@media(max-width:650px){
+#hint{
+position:absolute;
+left:50%;
+bottom:14px;
+transform:translateX(-50%);
+padding:8px 13px;
+background:rgba(0,0,0,.65);
+border-radius:10px;
+font-size:11px;
+color:#bbb;
+pointer-events:none;
+white-space:nowrap;
+z-index:5;
+}
+
+@media(max-width:700px){
 
 #top{
 height:54px;
@@ -249,8 +242,8 @@ font-size:14px;
 
 .topButton{
 height:38px;
-padding:0 9px;
 font-size:10px;
+padding:0 9px;
 }
 
 #left,
@@ -258,39 +251,30 @@ font-size:10px;
 display:none;
 }
 
-#main{
-position:relative;
-}
-
-#center{
-padding-bottom:0;
-}
-
 #bottom{
-display:grid;
 position:fixed;
+display:grid;
 left:0;
 right:0;
 bottom:0;
 width:100%;
-height:68px;
+height:70px;
 grid-template-columns:repeat(4,1fr);
 gap:6px;
 padding:7px;
-padding-bottom:7px;
 background:#18181b;
 border-top:1px solid #303035;
 z-index:9999;
 }
 
 .bottomButton{
-height:54px;
+height:55px;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 gap:2px;
-background:#29292d;
+background:#29292e;
 font-size:10px;
 }
 
@@ -303,15 +287,15 @@ line-height:20px;
 position:fixed;
 left:8px;
 right:8px;
-bottom:76px;
+bottom:78px;
 max-height:70vh;
 overflow:auto;
+padding:12px;
 background:#1b1b1f;
 border:1px solid #444;
 border-radius:16px;
-padding:12px;
-box-shadow:0 10px 40px rgba(0,0,0,.6);
-z-index:10000;
+box-shadow:0 10px 40px rgba(0,0,0,.65);
+z-index:9998;
 }
 
 .mobilePanel.open{
@@ -343,13 +327,12 @@ gap:7px;
 
 .mobileAddButton{
 height:65px;
-font-size:10px;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 gap:3px;
-background:#29292d;
+font-size:10px;
 }
 
 .mobileAddIcon{
@@ -370,9 +353,13 @@ display:none;
 display:block;
 }
 
+#hint{
+bottom:82px;
 }
 
-@media(max-width:400px){
+}
+
+@media(max-width:420px){
 
 .mobileAddGrid{
 grid-template-columns:repeat(2,1fr);
@@ -412,12 +399,12 @@ OBJ保存
 
 <div class="addGrid">
 
-<button class="addButton" data-type="cube">
+<button class="addButton" data-type="box">
 <span class="addIcon">⬜</span>
 立方体
 </button>
 
-<button class="addButton" data-type="box">
+<button class="addButton" data-type="box2">
 <span class="addIcon">▣</span>
 直方体
 </button>
@@ -442,14 +429,14 @@ OBJ保存
 トーラス
 </button>
 
-<button class="addButton" data-type="pyramid">
-<span class="addIcon">◆</span>
-四角錐
-</button>
-
 <button class="addButton" data-type="prism">
 <span class="addIcon">🔺</span>
 三角柱
+</button>
+
+<button class="addButton" data-type="pyramid">
+<span class="addIcon">◆</span>
+四角錐
 </button>
 
 <button class="addButton" data-type="plane">
@@ -462,10 +449,20 @@ OBJ保存
 カプセル
 </button>
 
+<button class="addButton" data-type="tetra">
+<span class="addIcon">△</span>
+三角錐
+</button>
+
+<button class="addButton" data-type="octa">
+<span class="addIcon">◇</span>
+八面体
+</button>
+
 </div>
 
 <div class="sectionTitle" style="margin-top:20px">
-パーツ一覧
+パーツ
 </div>
 
 <div id="objectList"></div>
@@ -477,7 +474,7 @@ OBJ保存
 <canvas id="canvas"></canvas>
 
 <div id="hint">
-1本指：回転　｜　2本指：拡大・縮小
+1本指：回転　2本指：拡大・縮小
 </div>
 
 <div class="mobilePanel" id="addPanel">
@@ -489,12 +486,12 @@ OBJ保存
 
 <div class="mobileAddGrid">
 
-<button class="mobileAddButton" data-type="cube">
+<button class="mobileAddButton" data-type="box">
 <span class="mobileAddIcon">⬜</span>
 立方体
 </button>
 
-<button class="mobileAddButton" data-type="box">
+<button class="mobileAddButton" data-type="box2">
 <span class="mobileAddIcon">▣</span>
 直方体
 </button>
@@ -519,14 +516,14 @@ OBJ保存
 トーラス
 </button>
 
-<button class="mobileAddButton" data-type="pyramid">
-<span class="mobileAddIcon">◆</span>
-四角錐
-</button>
-
 <button class="mobileAddButton" data-type="prism">
 <span class="mobileAddIcon">🔺</span>
 三角柱
+</button>
+
+<button class="mobileAddButton" data-type="pyramid">
+<span class="mobileAddIcon">◆</span>
+四角錐
 </button>
 
 <button class="mobileAddButton" data-type="plane">
@@ -537,6 +534,16 @@ OBJ保存
 <button class="mobileAddButton" data-type="capsule">
 <span class="mobileAddIcon">💊</span>
 カプセル
+</button>
+
+<button class="mobileAddButton" data-type="tetra">
+<span class="mobileAddIcon">△</span>
+三角錐
+</button>
+
+<button class="mobileAddButton" data-type="octa">
+<span class="mobileAddIcon">◇</span>
+八面体
 </button>
 
 </div>
@@ -561,7 +568,7 @@ OBJ保存
 <button class="closePanel" data-close="settingsPanel">×</button>
 </div>
 
-<div id="mobileNoSelection" style="color:#888;font-size:12px">
+<div id="mobileNoSelection">
 パーツを選択してください。
 </div>
 
@@ -575,9 +582,9 @@ OBJ保存
 <div class="field">
 <label>位置 X / Y / Z</label>
 <div class="row">
-<input id="m_px" type="number" step="0.1">
-<input id="m_py" type="number" step="0.1">
-<input id="m_pz" type="number" step="0.1">
+<input id="m_x" type="number" step="0.1">
+<input id="m_y" type="number" step="0.1">
+<input id="m_z" type="number" step="0.1">
 </div>
 </div>
 
@@ -621,7 +628,7 @@ OBJ保存
 </div>
 
 <div id="empty">
-パーツを選択すると、ここから設定できます。
+パーツを選択してください。
 </div>
 
 <div id="editor" style="display:none">
@@ -634,9 +641,9 @@ OBJ保存
 <div class="field">
 <label>位置 X / Y / Z</label>
 <div class="row">
-<input id="px" type="number" step="0.1">
-<input id="py" type="number" step="0.1">
-<input id="pz" type="number" step="0.1">
+<input id="x" type="number" step="0.1">
+<input id="y" type="number" step="0.1">
+<input id="z" type="number" step="0.1">
 </div>
 </div>
 
@@ -699,229 +706,280 @@ OBJ保存
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+
 <script>
+(function(){
 
 "use strict";
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+if(typeof THREE==="undefined"){
+alert("3Dエンジンの読み込みに失敗しました。インターネット接続を確認してください。");
+return;
+}
 
-let objects=[];
+const canvas=document.getElementById("canvas");
+
+const renderer=new THREE.WebGLRenderer({
+canvas:canvas,
+antialias:true,
+alpha:false
+});
+
+renderer.setPixelRatio(
+Math.min(window.devicePixelRatio||1,2)
+);
+
+renderer.setClearColor(0x101014,1);
+
+const scene=new THREE.Scene();
+
+const camera=new THREE.PerspectiveCamera(
+45,
+1,
+0.01,
+1000
+);
+
+camera.position.set(
+5,
+4,
+7
+);
+
+const ambient=new THREE.HemisphereLight(
+0xffffff,
+0x303030,
+2
+);
+
+scene.add(ambient);
+
+const light=new THREE.DirectionalLight(
+0xffffff,
+2.5
+);
+
+light.position.set(5,8,6);
+
+scene.add(light);
+
+const grid=new THREE.GridHelper(
+20,
+20,
+0x555555,
+0x29292d
+);
+
+scene.add(grid);
+
+const objects=[];
+
 let selected=null;
 let counter=1;
 
-const camera={
-yaw:-0.7,
-pitch:0.45,
-distance:7
-};
-
-let pointers=new Map();
-let dragStart=null;
-let lastX=0;
-let lastY=0;
-let moved=false;
-let pinchDistance=0;
-let pinchZoom=7;
-
 const names={
-cube:"立方体",
-box:"直方体",
+box:"立方体",
+box2:"直方体",
 sphere:"球",
 cylinder:"円柱",
 cone:"円錐",
 torus:"トーラス",
-pyramid:"四角錐",
 prism:"三角柱",
+pyramid:"四角錐",
 plane:"平面",
-capsule:"カプセル"
+capsule:"カプセル",
+tetra:"三角錐",
+octa:"八面体"
 };
 
 const colors={
-cube:"#4da3ff",
-box:"#4da3ff",
-sphere:"#ff6688",
-cylinder:"#72d66f",
-cone:"#ffc857",
-torus:"#a875ff",
-pyramid:"#ff8c42",
-prism:"#4dd9ff",
-plane:"#aaaaaa",
-capsule:"#ff66c4"
+box:0x4da3ff,
+box2:0x4da3ff,
+sphere:0xff6688,
+cylinder:0x72d66f,
+cone:0xffc857,
+torus:0xa875ff,
+prism:0x4dd9ff,
+pyramid:0xff8c42,
+plane:0xaaaaaa,
+capsule:0xff66c4,
+tetra:0xff5577,
+octa:0x55ddaa
 };
 
-function resize(){
+function createGeometry(type){
 
-const dpr=Math.min(window.devicePixelRatio||1,2);
-const r=canvas.getBoundingClientRect();
-
-canvas.width=Math.max(1,Math.floor(r.width*dpr));
-canvas.height=Math.max(1,Math.floor(r.height*dpr));
-
-ctx.setTransform(dpr,0,0,dpr,0,0);
-
-draw();
-
+if(type==="box"){
+return new THREE.BoxGeometry(1,1,1);
 }
 
-window.addEventListener("resize",resize);
-
-function rad(v){
-return v*Math.PI/180;
+if(type==="box2"){
+return new THREE.BoxGeometry(1.8,1,1.2);
 }
 
-function rotate(p,rx,ry,rz){
-
-let x=p.x;
-let y=p.y;
-let z=p.z;
-
-let c=Math.cos(rx);
-let s=Math.sin(rx);
-
-let ny=y*c-z*s;
-let nz=y*s+z*c;
-
-y=ny;
-z=nz;
-
-c=Math.cos(ry);
-s=Math.sin(ry);
-
-let nx=x*c+z*s;
-nz=-x*s+z*c;
-
-x=nx;
-z=nz;
-
-c=Math.cos(rz);
-s=Math.sin(rz);
-
-nx=x*c-y*s;
-ny=x*s+y*c;
-
-x=nx;
-y=ny;
-
-return{x,y,z};
-
+if(type==="sphere"){
+return new THREE.SphereGeometry(
+0.6,
+32,
+20
+);
 }
 
-function worldPoint(p,o){
+if(type==="cylinder"){
+return new THREE.CylinderGeometry(
+0.5,
+0.5,
+1.4,
+32
+);
+}
 
-let r=rotate(
+if(type==="cone"){
+return new THREE.ConeGeometry(
+0.6,
+1.5,
+32
+);
+}
+
+if(type==="torus"){
+return new THREE.TorusGeometry(
+0.75,
+0.22,
+16,
+36
+);
+}
+
+if(type==="prism"){
+
+const shape=new THREE.Shape();
+
+shape.moveTo(-0.6,-0.5);
+shape.lineTo(0.6,-0.5);
+shape.lineTo(0,0.5);
+shape.lineTo(-0.6,-0.5);
+
+return new THREE.ExtrudeGeometry(
+shape,
 {
-x:p.x*o.sx,
-y:p.y*o.sy,
-z:p.z*o.sz
-},
-rad(o.rx),
-rad(o.ry),
-rad(o.rz)
+depth:1,
+bevelEnabled:false
+}
 );
 
-r.x+=o.x;
-r.y+=o.y;
-r.z+=o.z;
-
-return r;
-
 }
 
-function project(p){
+if(type==="pyramid"){
 
-const cy=Math.cos(camera.yaw);
-const sy=Math.sin(camera.yaw);
+const vertices=new Float32Array([
+-0.6,-0.5,-0.6,
+0.6,-0.5,-0.6,
+0.6,-0.5,0.6,
+-0.6,-0.5,0.6,
+0,0.7,0
+]);
 
-let x=p.x*cy-p.z*sy;
-let z=p.x*sy+p.z*cy;
+const indices=[
+0,1,2,
+0,2,3,
+0,4,1,
+1,4,2,
+2,4,3,
+3,4,0
+];
 
-const cp=Math.cos(camera.pitch);
-const sp=Math.sin(camera.pitch);
+const g=new THREE.BufferGeometry();
 
-let y=p.y*cp-z*sp;
+g.setAttribute(
+"position",
+new THREE.BufferAttribute(vertices,3)
+);
 
-z=p.y*sp+z*cp;
+g.setIndex(indices);
+g.computeVertexNormals();
 
-const r=canvas.getBoundingClientRect();
+return g;
+}
 
-const scale=Math.min(r.width,r.height)/camera.distance;
+if(type==="plane"){
+return new THREE.PlaneGeometry(2,2);
+}
 
-return{
-x:r.width/2+x*scale,
-y:r.height/2-y*scale,
-z:z
-};
+if(type==="capsule"){
+return new THREE.CapsuleGeometry(
+0.45,
+1,
+12,
+24
+);
+}
+
+if(type==="tetra"){
+return new THREE.TetrahedronGeometry(
+0.8,
+0
+);
+}
+
+if(type==="octa"){
+return new THREE.OctahedronGeometry(
+0.8,
+0
+);
+}
+
+return new THREE.BoxGeometry(1,1,1);
 
 }
 
 function addObject(type){
 
-const o={
+const geometry=createGeometry(type);
+
+const material=new THREE.MeshStandardMaterial({
+color:colors[type],
+roughness:.65,
+metalness:.05
+});
+
+const mesh=new THREE.Mesh(
+geometry,
+material
+);
+
+mesh.position.set(0,0,0);
+
+scene.add(mesh);
+
+const obj={
+mesh:mesh,
 type:type,
-name:names[type]+"_"+counter++,
-x:0,
-y:0,
-z:0,
-rx:0,
-ry:0,
-rz:0,
-sx:1,
-sy:1,
-sz:1,
-color:colors[type]
+name:names[type]+"_"+counter++
 };
 
-if(type==="box"){
-o.sx=1.8;
-o.sy=1;
-o.sz=1.2;
+if(type==="box2"){
+mesh.scale.set(1,1,1);
 }
 
-if(type==="cylinder"){
-o.sx=1;
-o.sy=1.5;
-o.sz=1;
-}
+objects.push(obj);
 
-if(type==="cone"){
-o.sx=1;
-o.sy=1.5;
-o.sz=1;
-}
+selectObject(obj);
 
-if(type==="torus"){
-o.sx=1.3;
-o.sy=1;
-o.sz=1.3;
-}
+updateLists();
 
-if(type==="plane"){
-o.sx=2;
-o.sy=1;
-o.sz=2;
-}
-
-if(type==="capsule"){
-o.sx=1;
-o.sy=1.8;
-o.sz=1;
-}
-
-objects.push(o);
-selected=o;
-
-updateUI();
+render();
 
 }
 
-document.querySelectorAll("[data-type]").forEach(function(b){
+document.querySelectorAll("[data-type]").forEach(function(button){
 
-b.addEventListener("click",function(){
+button.addEventListener("click",function(){
 
-addObject(b.dataset.type);
+addObject(button.dataset.type);
 
-const panel=b.closest(".mobilePanel");
+const panel=button.closest(".mobilePanel");
 
 if(panel){
 panel.classList.remove("open");
@@ -931,20 +989,32 @@ panel.classList.remove("open");
 
 });
 
-function updateUI(){
+function selectObject(obj){
+
+if(selected){
+selected.mesh.material.emissive.setHex(0x000000);
+}
+
+selected=obj;
+
+if(selected){
+selected.mesh.material.emissive.setHex(0x333333);
+}
+
+updateEditor();
 
 updateLists();
-updateEditors();
-draw();
+
+render();
 
 }
 
 function updateLists(){
 
-const list=document.getElementById("objectList");
+const desktop=document.getElementById("objectList");
 const mobile=document.getElementById("mobileObjectsList");
 
-list.innerHTML="";
+desktop.innerHTML="";
 mobile.innerHTML="";
 
 if(objects.length===0){
@@ -953,10 +1023,9 @@ mobile.innerHTML=
 '<div style="color:#888;font-size:12px">パーツがありません。</div>';
 
 return;
-
 }
 
-objects.forEach(function(o){
+objects.forEach(function(obj){
 
 const a=document.createElement("button");
 const b=document.createElement("button");
@@ -964,179 +1033,211 @@ const b=document.createElement("button");
 a.className="object";
 b.className="object";
 
-if(o===selected){
+if(obj===selected){
 a.classList.add("selected");
 b.classList.add("selected");
 }
 
-a.textContent=o.name;
-b.textContent=o.name;
+a.textContent=obj.name;
+b.textContent=obj.name;
 
 a.addEventListener("click",function(){
-selected=o;
-updateUI();
+selectObject(obj);
 });
 
 b.addEventListener("click",function(){
-selected=o;
-updateUI();
+
+selectObject(obj);
 
 document.getElementById("partsPanel")
 .classList.remove("open");
 
 document.getElementById("settingsPanel")
 .classList.add("open");
+
 });
 
-list.appendChild(a);
+desktop.appendChild(a);
 mobile.appendChild(b);
 
 });
 
 }
 
-function setValues(prefix){
+function setInput(prefix,id,value){
 
-if(!selected)return;
-
-document.getElementById(prefix+"name").value=selected.name;
-document.getElementById(prefix+"px").value=selected.x;
-document.getElementById(prefix+"py").value=selected.y;
-document.getElementById(prefix+"pz").value=selected.z;
-
-document.getElementById(prefix+"rx").value=selected.rx;
-document.getElementById(prefix+"ry").value=selected.ry;
-document.getElementById(prefix+"rz").value=selected.rz;
-
-document.getElementById(prefix+"sx").value=selected.sx;
-document.getElementById(prefix+"sy").value=selected.sy;
-document.getElementById(prefix+"sz").value=selected.sz;
-
-document.getElementById(prefix+"color").value=selected.color;
+document.getElementById(prefix+id).value=value;
 
 }
 
-function updateEditors(){
+function updateEditor(){
 
 const empty=document.getElementById("empty");
 const editor=document.getElementById("editor");
 
-if(selected){
+const mobileEditor=document.getElementById("mobileEditor");
+const mobileEmpty=document.getElementById("mobileNoSelection");
 
-empty.style.display="none";
-editor.style.display="block";
-
-setValues("");
-
-}else{
+if(!selected){
 
 empty.style.display="block";
 editor.style.display="none";
 
+mobileEditor.classList.remove("show");
+mobileEmpty.style.display="block";
+
+return;
 }
 
-const me=document.getElementById("mobileEditor");
-const mn=document.getElementById("mobileNoSelection");
+empty.style.display="none";
+editor.style.display="block";
 
-if(selected){
+mobileEditor.classList.add("show");
+mobileEmpty.style.display="none";
 
-me.classList.add("show");
-mn.style.display="none";
+const m=selected.mesh;
 
-setValues("m_");
+setInput("","name",selected.name);
 
-}else{
+setInput("","x",m.position.x.toFixed(2));
+setInput("","y",m.position.y.toFixed(2));
+setInput("","z",m.position.z.toFixed(2));
 
-me.classList.remove("show");
-mn.style.display="block";
+setInput("","rx",THREE.MathUtils.radToDeg(m.rotation.x).toFixed(1));
+setInput("","ry",THREE.MathUtils.radToDeg(m.rotation.y).toFixed(1));
+setInput("","rz",THREE.MathUtils.radToDeg(m.rotation.z).toFixed(1));
+
+setInput("","sx",m.scale.x.toFixed(2));
+setInput("","sy",m.scale.y.toFixed(2));
+setInput("","sz",m.scale.z.toFixed(2));
+
+setInput(
+"",
+"color",
+"#"+m.material.color.getHexString()
+);
+
+setInput("m_","name",selected.name);
+
+setInput("m_","x",m.position.x.toFixed(2));
+setInput("m_","y",m.position.y.toFixed(2));
+setInput("m_","z",m.position.z.toFixed(2));
+
+setInput("m_","rx",THREE.MathUtils.radToDeg(m.rotation.x).toFixed(1));
+setInput("m_","ry",THREE.MathUtils.radToDeg(m.rotation.y).toFixed(1));
+setInput("m_","rz",THREE.MathUtils.radToDeg(m.rotation.z).toFixed(1));
+
+setInput("m_","sx",m.scale.x.toFixed(2));
+setInput("m_","sy",m.scale.y.toFixed(2));
+setInput("m_","sz",m.scale.z.toFixed(2));
+
+setInput(
+"m_",
+"color",
+"#"+m.material.color.getHexString()
+);
 
 }
 
+function number(id,fallback){
+
+const n=parseFloat(
+document.getElementById(id).value
+);
+
+return Number.isFinite(n)?n:fallback;
+
 }
 
-function val(id,old){
-
-const n=parseFloat(document.getElementById(id).value);
-
-return Number.isFinite(n)?n:old;
-
-}
-
-function mval(id,old){
+function mobileNumber(id,fallback){
 
 const n=parseFloat(
 document.getElementById("m_"+id).value
 );
 
-return Number.isFinite(n)?n:old;
+return Number.isFinite(n)?n:fallback;
 
 }
 
-function updateFromDesktop(){
+function applyDesktop(){
 
 if(!selected)return;
+
+const m=selected.mesh;
 
 selected.name=
 document.getElementById("name").value||"Object";
 
-selected.x=val("px",selected.x);
-selected.y=val("py",selected.y);
-selected.z=val("pz",selected.z);
+m.position.x=number("x",m.position.x);
+m.position.y=number("y",m.position.y);
+m.position.z=number("z",m.position.z);
 
-selected.rx=val("rx",selected.rx);
-selected.ry=val("ry",selected.ry);
-selected.rz=val("rz",selected.rz);
+m.rotation.x=THREE.MathUtils.degToRad(number("rx",0));
+m.rotation.y=THREE.MathUtils.degToRad(number("ry",0));
+m.rotation.z=THREE.MathUtils.degToRad(number("rz",0));
 
-selected.sx=Math.max(.05,val("sx",selected.sx));
-selected.sy=Math.max(.05,val("sy",selected.sy));
-selected.sz=Math.max(.05,val("sz",selected.sz));
+m.scale.x=Math.max(.01,number("sx",1));
+m.scale.y=Math.max(.01,number("sy",1));
+m.scale.z=Math.max(.01,number("sz",1));
 
-selected.color=
-document.getElementById("color").value;
+m.material.color.set(
+document.getElementById("color").value
+);
 
-updateUI();
+updateLists();
+render();
 
 }
 
-function updateFromMobile(){
+function applyMobile(){
 
 if(!selected)return;
+
+const m=selected.mesh;
 
 selected.name=
 document.getElementById("m_name").value||"Object";
 
-selected.x=mval("px",selected.x);
-selected.y=mval("py",selected.y);
-selected.z=mval("pz",selected.z);
+m.position.x=mobileNumber("x",m.position.x);
+m.position.y=mobileNumber("y",m.position.y);
+m.position.z=mobileNumber("z",m.position.z);
 
-selected.rx=mval("rx",selected.rx);
-selected.ry=mval("ry",selected.ry);
-selected.rz=mval("rz",selected.rz);
+m.rotation.x=THREE.MathUtils.degToRad(mobileNumber("rx",0));
+m.rotation.y=THREE.MathUtils.degToRad(mobileNumber("ry",0));
+m.rotation.z=THREE.MathUtils.degToRad(mobileNumber("rz",0));
 
-selected.sx=Math.max(.05,mval("sx",selected.sx));
-selected.sy=Math.max(.05,mval("sy",selected.sy));
-selected.sz=Math.max(.05,mval("sz",selected.sz));
+m.scale.x=Math.max(.01,mobileNumber("sx",1));
+m.scale.y=Math.max(.01,mobileNumber("sy",1));
+m.scale.z=Math.max(.01,mobileNumber("sz",1));
 
-selected.color=
-document.getElementById("m_color").value;
+m.material.color.set(
+document.getElementById("m_color").value
+);
 
-updateUI();
+updateLists();
+render();
 
 }
 
 [
 "name",
-"px","py","pz",
-"rx","ry","rz",
-"sx","sy","sz",
+"x",
+"y",
+"z",
+"rx",
+"ry",
+"rz",
+"sx",
+"sy",
+"sz",
 "color"
 ].forEach(function(id){
 
 document.getElementById(id)
-.addEventListener("input",updateFromDesktop);
+.addEventListener("input",applyDesktop);
 
 document.getElementById("m_"+id)
-.addEventListener("input",updateFromMobile);
+.addEventListener("input",applyMobile);
 
 });
 
@@ -1144,15 +1245,27 @@ function deleteSelected(){
 
 if(!selected)return;
 
-objects=objects.filter(function(o){
-return o!==selected;
-});
+scene.remove(selected.mesh);
 
-selected=objects.length?
-objects[objects.length-1]:
-null;
+selected.mesh.geometry.dispose();
+selected.mesh.material.dispose();
 
-updateUI();
+const index=objects.indexOf(selected);
+
+if(index>=0){
+objects.splice(index,1);
+}
+
+selected=null;
+
+if(objects.length){
+selected=objects[objects.length-1];
+selected.mesh.material.emissive.setHex(0x333333);
+}
+
+updateLists();
+updateEditor();
+render();
 
 }
 
@@ -1162,27 +1275,58 @@ document.getElementById("deleteButton")
 document.getElementById("mobileDelete")
 .addEventListener("click",deleteSelected);
 
-function resetCamera(){
+function resize(){
 
-camera.yaw=-0.7;
-camera.pitch=0.45;
-camera.distance=7;
+const rect=document
+.getElementById("center")
+.getBoundingClientRect();
 
-draw();
+renderer.setSize(
+rect.width,
+rect.height,
+false
+);
+
+camera.aspect=
+rect.width/rect.height;
+
+camera.updateProjectionMatrix();
+
+render();
+
+}
+
+window.addEventListener("resize",resize);
+
+function render(){
+
+renderer.render(
+scene,
+camera
+);
+
+}
+
+function resetView(){
+
+camera.position.set(5,4,7);
+camera.lookAt(0,0,0);
+
+render();
 
 }
 
 document.getElementById("resetButton")
-.addEventListener("click",resetCamera);
+.addEventListener("click",resetView);
 
 document.getElementById("mobileReset")
-.addEventListener("click",resetCamera);
+.addEventListener("click",resetView);
 
 function openPanel(id){
 
 document.querySelectorAll(".mobilePanel")
-.forEach(function(p){
-p.classList.remove("open");
+.forEach(function(panel){
+panel.classList.remove("open");
 });
 
 document.getElementById(id)
@@ -1206,722 +1350,147 @@ openPanel("settingsPanel");
 });
 
 document.querySelectorAll("[data-close]")
-.forEach(function(b){
+.forEach(function(button){
 
-b.addEventListener("click",function(){
+button.addEventListener("click",function(){
 
 document.getElementById(
-b.dataset.close
+button.dataset.close
 ).classList.remove("open");
 
 });
 
 });
 
-function boxMesh(o){
-
-const x=.5;
-const y=.5;
-const z=.5;
-
-const v=[
-{x:-x,y:-y,z:-z},
-{x:x,y:-y,z:-z},
-{x:x,y:y,z:-z},
-{x:-x,y:y,z:-z},
-{x:-x,y:-y,z:z},
-{x:x,y:-y,z:z},
-{x:x,y:y,z:z},
-{x:-x,y:y,z:z}
-];
-
-const f=[
-[0,1,2,3],
-[4,7,6,5],
-[0,4,5,1],
-[3,2,6,7],
-[1,5,6,2],
-[0,3,7,4]
-];
-
-return{
-vertices:v.map(function(p){
-return worldPoint(p,o);
-}),
-faces:f
-};
-
-}
-
-function sphereMesh(o){
-
-const vertices=[];
-const fs=[];
-
-const lat=14;
-const lon=20;
-
-for(let y=0;y<=lat;y++){
-
-const a=Math.PI*y/lat;
-const sy=Math.cos(a);
-const r=Math.sin(a);
-
-for(let x=0;x<lon;x++){
-
-const b=Math.PI*2*x/lon;
-
-vertices.push(
-worldPoint(
-{
-x:r*Math.cos(b),
-y:sy,
-z:r*Math.sin(b)
-},
-o
-)
-);
-
-}
-
-}
-
-for(let y=0;y<lat;y++){
-
-for(let x=0;x<lon;x++){
-
-const a=y*lon+x;
-const b=y*lon+(x+1)%lon;
-const c=(y+1)*lon+(x+1)%lon;
-const d=(y+1)*lon+x;
-
-fs.push([a,b,c,d]);
-
-}
-
-}
-
-return{
-vertices:vertices,
-faces:fs
-};
-
-}
-
-function cylinderMesh(o,cone){
-
-const vertices=[];
-const fs=[];
-
-const segments=24;
-
-for(let i=0;i<segments;i++){
-
-const a=Math.PI*2*i/segments;
-
-vertices.push(
-worldPoint(
-{
-x:Math.cos(a)*.5,
-y:-.5,
-z:Math.sin(a)*.5
-},
-o
-)
-);
-
-}
-
-for(let i=0;i<segments;i++){
-
-const a=Math.PI*2*i/segments;
-
-vertices.push(
-worldPoint(
-{
-x:Math.cos(a)*(cone?0:.5),
-y:.5,
-z:Math.sin(a)*(cone?0:.5)
-},
-o
-)
-);
-
-}
-
-for(let i=0;i<segments;i++){
-
-const n=(i+1)%segments;
-
-fs.push([
-i,
-n,
-segments+n,
-segments+i
-]);
-
-}
-
-const bottom=[];
-
-for(let i=segments-1;i>=0;i--){
-bottom.push(i);
-}
-
-fs.push(bottom);
-
-const top=[];
-
-for(let i=0;i<segments;i++){
-top.push(segments+i);
-}
-
-fs.push(top);
-
-return{
-vertices:vertices,
-faces:fs
-};
-
-}
-
-function torusMesh(o){
-
-const vertices=[];
-const fs=[];
-
-const major=1;
-const minor=.28;
-const aSeg=24;
-const bSeg=10;
-
-for(let i=0;i<aSeg;i++){
-
-const a=Math.PI*2*i/aSeg;
-
-for(let j=0;j<bSeg;j++){
-
-const b=Math.PI*2*j/bSeg;
-
-const r=major+minor*Math.cos(b);
-
-vertices.push(
-worldPoint(
-{
-x:r*Math.cos(a),
-y:minor*Math.sin(b),
-z:r*Math.sin(a)
-},
-o
-)
-);
-
-}
-
-}
-
-for(let i=0;i<aSeg;i++){
-
-for(let j=0;j<bSeg;j++){
-
-const ni=(i+1)%aSeg;
-const nj=(j+1)%bSeg;
-
-fs.push([
-i*bSeg+j,
-ni*bSeg+j,
-ni*bSeg+nj,
-i*bSeg+nj
-]);
-
-}
-
-}
-
-return{
-vertices:vertices,
-faces:fs
-};
-
-}
-
-function pyramidMesh(o){
-
-const v=[
-{x:-.5,y:-.5,z:-.5},
-{x:.5,y:-.5,z:-.5},
-{x:.5,y:-.5,z:.5},
-{x:-.5,y:-.5,z:.5},
-{x:0,y:.7,z:0}
-];
-
-return{
-vertices:v.map(function(p){
-return worldPoint(p,o);
-}),
-faces:[
-[0,3,2,1],
-[0,1,4],
-[1,2,4],
-[2,3,4],
-[3,0,4]
-]
-};
-
-}
-
-function prismMesh(o){
-
-const v=[
-{x:-.5,y:-.5,z:-.5},
-{x:.5,y:-.5,z:-.5},
-{x:0,y:.5,z:-.5},
-{x:-.5,y:-.5,z:.5},
-{x:.5,y:-.5,z:.5},
-{x:0,y:.5,z:.5}
-];
-
-return{
-vertices:v.map(function(p){
-return worldPoint(p,o);
-}),
-faces:[
-[0,2,1],
-[3,4,5],
-[0,1,4,3],
-[1,2,5,4],
-[2,0,3,5]
-]
-};
-
-}
-
-function planeMesh(o){
-
-const v=[
-{x:-.5,y:0,z:-.5},
-{x:.5,y:0,z:-.5},
-{x:.5,y:0,z:.5},
-{x:-.5,y:0,z:.5}
-];
-
-return{
-vertices:v.map(function(p){
-return worldPoint(p,o);
-}),
-faces:[[0,1,2,3]]
-};
-
-}
-
-function capsuleMesh(o){
-
-const vertices=[];
-const fs=[];
-
-const lat=18;
-const lon=20;
-
-for(let y=0;y<=lat;y++){
-
-const t=y/lat;
-const angle=Math.PI*t;
-
-let yy=Math.cos(angle);
-let rr=Math.sin(angle);
-
-yy*=.75;
-
-if(y<lat/2){
-yy-=.45;
-}else{
-yy+=.45;
-}
-
-for(let x=0;x<lon;x++){
-
-const a=Math.PI*2*x/lon;
-
-vertices.push(
-worldPoint(
-{
-x:rr*Math.cos(a),
-y:yy,
-z:rr*Math.sin(a)
-},
-o
-)
-);
-
-}
-
-}
-
-for(let y=0;y<lat;y++){
-
-for(let x=0;x<lon;x++){
-
-const n=(x+1)%lon;
-
-fs.push([
-y*lon+x,
-y*lon+n,
-(y+1)*lon+n,
-(y+1)*lon+x
-]);
-
-}
-
-}
-
-return{
-vertices:vertices,
-faces:fs
-};
-
-}
-
-function getMesh(o){
-
-if(o.type==="cube"||o.type==="box"){
-return boxMesh(o);
-}
-
-if(o.type==="sphere"){
-return sphereMesh(o);
-}
-
-if(o.type==="cylinder"){
-return cylinderMesh(o,false);
-}
-
-if(o.type==="cone"){
-return cylinderMesh(o,true);
-}
-
-if(o.type==="torus"){
-return torusMesh(o);
-}
-
-if(o.type==="pyramid"){
-return pyramidMesh(o);
-}
-
-if(o.type==="prism"){
-return prismMesh(o);
-}
-
-if(o.type==="plane"){
-return planeMesh(o);
-}
-
-if(o.type==="capsule"){
-return capsuleMesh(o);
-}
-
-return boxMesh(o);
-
-}
-
-function hexRgb(hex){
-
-return[
-parseInt(hex.slice(1,3),16),
-parseInt(hex.slice(3,5),16),
-parseInt(hex.slice(5,7),16)
-];
-
-}
-
-function drawMesh(o){
-
-const mesh=getMesh(o);
-
-const projected=
-mesh.vertices.map(project);
-
-const list=[];
-
-mesh.faces.forEach(function(face){
-
-let depth=0;
-
-face.forEach(function(i){
-depth+=mesh.vertices[i].z;
-});
-
-depth/=face.length;
-
-list.push({
-face:face,
-depth:depth
-});
-
-});
-
-list.sort(function(a,b){
-return a.depth-b.depth;
-});
-
-const rgb=hexRgb(o.color);
-
-list.forEach(function(item){
-
-const f=item.face;
-
-if(f.length<3)return;
-
-ctx.beginPath();
-
-ctx.moveTo(
-projected[f[0]].x,
-projected[f[0]].y
-);
-
-for(let i=1;i<f.length;i++){
-
-ctx.lineTo(
-projected[f[i]].x,
-projected[f[i]].y
-);
-
-}
-
-ctx.closePath();
-
-let factor=.65;
-
-if(item.depth>0){
-factor=.8;
-}
-
-if(item.depth>2){
-factor=.95;
-}
-
-ctx.fillStyle=
-"rgb("+
-Math.max(0,Math.min(255,Math.floor(rgb[0]*factor)))+
-","+
-Math.max(0,Math.min(255,Math.floor(rgb[1]*factor)))+
-","+
-Math.max(0,Math.min(255,Math.floor(rgb[2]*factor)))+
-")";
-
-ctx.fill();
-
-ctx.strokeStyle=
-o===selected?"#ffffff":"#111111";
-
-ctx.lineWidth=
-o===selected?1.8:1;
-
-ctx.stroke();
-
-});
-
-}
-
-function drawGrid(){
-
-const r=canvas.getBoundingClientRect();
-
-ctx.clearRect(
-0,
-0,
-r.width,
-r.height
-);
-
-ctx.fillStyle="#101014";
-
-ctx.fillRect(
-0,
-0,
-r.width,
-r.height
-);
-
-for(let i=-10;i<=10;i++){
-
-drawLine(
-{x:i,y:0,z:-10},
-{x:i,y:0,z:10},
-i===0?"#555":"#28282d"
-);
-
-drawLine(
-{x:-10,y:0,z:i},
-{x:10,y:0,z:i},
-i===0?"#555":"#28282d"
-);
-
-}
-
-}
-
-function drawLine(a,b,color){
-
-const pa=project(a);
-const pb=project(b);
-
-ctx.strokeStyle=color;
-ctx.lineWidth=1;
-
-ctx.beginPath();
-ctx.moveTo(pa.x,pa.y);
-ctx.lineTo(pb.x,pb.y);
-ctx.stroke();
-
-}
-
-function draw(){
-
-drawGrid();
-
-objects.forEach(function(o){
-drawMesh(o);
-});
-
-}
+let rotating=false;
+let lastX=0;
+let lastY=0;
+let touchDistance=0;
+let startCameraDistance=0;
 
 canvas.addEventListener("pointerdown",function(e){
 
-pointers.set(
-e.pointerId,
-{
-x:e.clientX,
-y:e.clientY
+if(e.pointerType==="mouse" && e.button!==0){
+return;
 }
-);
+
+rotating=true;
+
+lastX=e.clientX;
+lastY=e.clientY;
 
 try{
 canvas.setPointerCapture(e.pointerId);
 }catch(_){}
 
-if(pointers.size===1){
-
-dragStart={
-x:e.clientX,
-y:e.clientY
-};
-
-lastX=e.clientX;
-lastY=e.clientY;
-moved=false;
-
-}
-
-if(pointers.size===2){
-
-const p=[...pointers.values()];
-
-pinchDistance=Math.hypot(
-p[0].x-p[1].x,
-p[0].y-p[1].y
-);
-
-pinchZoom=camera.distance;
-
-}
-
 });
 
 canvas.addEventListener("pointermove",function(e){
 
-if(!pointers.has(e.pointerId)){
-return;
-}
+if(!rotating)return;
 
-pointers.set(
-e.pointerId,
-{
-x:e.clientX,
-y:e.clientY
-}
-);
-
-if(pointers.size===2){
-
-const p=[...pointers.values()];
-
-const d=Math.hypot(
-p[0].x-p[1].x,
-p[0].y-p[1].y
-);
-
-if(pinchDistance>0){
-
-camera.distance=
-pinchZoom*
-pinchDistance/
-Math.max(1,d);
-
-camera.distance=
-Math.max(
-2,
-Math.min(30,camera.distance)
-);
-
-}
-
-moved=true;
-draw();
-
-return;
-
-}
-
-if(pointers.size!==1){
+if(e.pointerType==="touch"){
 return;
 }
 
 const dx=e.clientX-lastX;
 const dy=e.clientY-lastY;
 
-if(Math.abs(dx)+Math.abs(dy)>2){
-moved=true;
-}
+camera.position.x=
+camera.position.x*Math.cos(-dx*.01)-
+camera.position.z*Math.sin(-dx*.01);
 
-camera.yaw-=dx*.008;
-camera.pitch+=dy*.008;
+camera.position.z=
+camera.position.x*Math.sin(-dx*.01)+
+camera.position.z*Math.cos(-dx*.01);
 
-camera.pitch=
-Math.max(
--1.45,
-Math.min(1.45,camera.pitch)
+camera.position.y+=dy*.025;
+
+camera.position.y=
+THREE.MathUtils.clamp(
+camera.position.y,
+-10,
+10
 );
+
+camera.lookAt(0,0,0);
 
 lastX=e.clientX;
 lastY=e.clientY;
 
-draw();
+render();
 
 });
 
-canvas.addEventListener("pointerup",function(e){
-
-pointers.delete(e.pointerId);
-
-if(pointers.size<2){
-pinchDistance=0;
-}
-
-if(pointers.size===0){
-
-dragStart=null;
-
-}
-
+canvas.addEventListener("pointerup",function(){
+rotating=false;
 });
 
-canvas.addEventListener("pointercancel",function(e){
+canvas.addEventListener("pointercancel",function(){
+rotating=false;
+});
 
-pointers.delete(e.pointerId);
+canvas.addEventListener("touchstart",function(e){
 
-if(pointers.size<2){
-pinchDistance=0;
+if(e.touches.length===2){
+
+const a=e.touches[0];
+const b=e.touches[1];
+
+touchDistance=Math.hypot(
+a.clientX-b.clientX,
+a.clientY-b.clientY
+);
+
+startCameraDistance=
+camera.position.length();
+
 }
+
+},{passive:true});
+
+canvas.addEventListener("touchmove",function(e){
+
+if(e.touches.length!==2)return;
+
+e.preventDefault();
+
+const a=e.touches[0];
+const b=e.touches[1];
+
+const d=Math.hypot(
+a.clientX-b.clientX,
+a.clientY-b.clientY
+);
+
+if(touchDistance<=0)return;
+
+const scale=
+touchDistance/Math.max(1,d);
+
+const newDistance=
+THREE.MathUtils.clamp(
+startCameraDistance*scale,
+2,
+40
+);
+
+const direction=
+camera.position.clone().normalize();
+
+camera.position.copy(
+direction.multiplyScalar(newDistance)
+);
+
+camera.lookAt(0,0,0);
+
+render();
+
+},{passive:false});
+
+canvas.addEventListener("touchend",function(){
+
+touchDistance=0;
 
 });
 
@@ -1929,15 +1498,23 @@ canvas.addEventListener("wheel",function(e){
 
 e.preventDefault();
 
-camera.distance+=e.deltaY*.01;
+const direction=
+camera.position.clone().normalize();
 
-camera.distance=
-Math.max(
+const distance=
+THREE.MathUtils.clamp(
+camera.position.length()+e.deltaY*.01,
 2,
-Math.min(30,camera.distance)
+40
 );
 
-draw();
+camera.position.copy(
+direction.multiplyScalar(distance)
+);
+
+camera.lookAt(0,0,0);
+
+render();
 
 },{passive:false});
 
@@ -1945,25 +1522,76 @@ function exportOBJ(){
 
 if(objects.length===0){
 
-alert("モデルがありません。");
+alert("パーツがありません。");
 return;
 
 }
 
-let output=
-"# Hiro 3D Model Maker\n";
+let vertices=[];
+let faces=[];
+let offset=1;
 
-let index=1;
+objects.forEach(function(obj){
 
-objects.forEach(function(o){
+const mesh=obj.mesh;
 
-const mesh=getMesh(o);
+mesh.updateMatrixWorld(true);
 
-output+="\no "+o.name+"\n";
+const position=
+mesh.geometry.getAttribute("position");
 
-mesh.vertices.forEach(function(v){
+const index=
+mesh.geometry.getIndex();
 
-output+=
+for(let i=0;i<position.count;i++){
+
+const v=new THREE.Vector3();
+
+v.fromBufferAttribute(position,i);
+
+v.applyMatrix4(mesh.matrixWorld);
+
+vertices.push(v);
+
+}
+
+if(index){
+
+const arr=index.array;
+
+for(let i=0;i<arr.length;i+=3){
+
+faces.push([
+arr[i]+offset,
+arr[i+1]+offset,
+arr[i+2]+offset
+]);
+
+}
+
+}else{
+
+for(let i=0;i<position.count;i+=3){
+
+faces.push([
+i+offset,
+i+1+offset,
+i+2+offset
+]);
+
+}
+
+}
+
+offset+=position.count;
+
+});
+
+let text="# Hiro 3D Model Maker\n\n";
+
+vertices.forEach(function(v){
+
+text+=
 "v "+
 v.x.toFixed(6)+" "+
 v.y.toFixed(6)+" "+
@@ -1971,38 +1599,36 @@ v.z.toFixed(6)+"\n";
 
 });
 
-mesh.faces.forEach(function(f){
+text+="\n";
 
-output+="f ";
+faces.forEach(function(f){
 
-f.forEach(function(i){
-
-output+=(index+i)+" ";
-
-});
-
-output+="\n";
-
-});
-
-index+=mesh.vertices.length;
+text+=
+"f "+
+f[0]+" "+
+f[1]+" "+
+f[2]+"\n";
 
 });
 
 const blob=new Blob(
-[output],
+[text],
 {type:"text/plain"}
 );
 
-const url=URL.createObjectURL(blob);
+const url=
+URL.createObjectURL(blob);
 
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=url;
 a.download="hiro_3d_model.obj";
 
 document.body.appendChild(a);
+
 a.click();
+
 a.remove();
 
 setTimeout(function(){
@@ -2016,7 +1642,7 @@ document.getElementById("exportButton")
 
 resize();
 
-addObject("cube");
+addObject("box");
 
 })();
 </script>
