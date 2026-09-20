@@ -1902,8 +1902,30 @@ URL.revokeObjectURL(url);
 document.getElementById("exportButton").onclick=exportOBJ;
 
 function roundJSON(n){
-
 return Number(n.toFixed(6));
+}
+
+function getFaceNormal(a,b,c){
+
+const ux=b[0]-a[0];
+const uy=b[1]-a[1];
+const uz=b[2]-a[2];
+
+const vx=c[0]-a[0];
+const vy=c[1]-a[1];
+const vz=c[2]-a[2];
+
+let nx=uy*vz-uz*vy;
+let ny=uz*vx-ux*vz;
+let nz=ux*vy-uy*vx;
+
+const len=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
+
+return[
+roundJSON(nx/len),
+roundJSON(ny/len),
+roundJSON(nz/len)
+];
 
 }
 
@@ -1921,61 +1943,63 @@ roundJSON(q.z)
 
 });
 
+const normals=[];
+const uvs=[];
 const polys=[];
+
+for(let i=0;i<positions.length;i++){
+
+uvs.push([
+roundJSON((positions[i][0]+1)/2),
+roundJSON((positions[i][2]+1)/2)
+]);
+
+normals.push([0,1,0]);
+
+}
 
 o.geometry.faces.forEach(function(f){
 
 if(f.length===3){
 
+const n=getFaceNormal(
+positions[f[0]],
+positions[f[1]],
+positions[f[2]]
+);
+
+const ni=normals.length;
+
+normals.push(n);
+
 polys.push([
-[f[0],f[0],0],
-[f[1],f[1],0],
-[f[2],f[2],0]
+[f[0],ni,f[0]],
+[f[1],ni,f[1]],
+[f[2],ni,f[2]]
 ]);
 
 }
 
 else if(f.length===4){
 
+const n=getFaceNormal(
+positions[f[0]],
+positions[f[1]],
+positions[f[2]]
+);
+
+const ni=normals.length;
+
+normals.push(n);
+
 polys.push([
-[f[0],f[0],0],
-[f[1],f[1],0],
-[f[2],f[2],0],
-[f[3],f[3],0]
+[f[0],ni,f[0]],
+[f[1],ni,f[1]],
+[f[2],ni,f[2]],
+[f[3],ni,f[3]]
 ]);
 
 }
-
-});
-
-const normals=[];
-
-for(let i=0;i<o.geometry.vertices.length;i++){
-normals.push([0,1,0]);
-}
-
-const uvs=o.geometry.vertices.map(function(p){
-
-const u=Math.max(
-0,
-Math.min(
-1,
-p.x+0.5
-)
-);
-
-const v=Math.max(
-0,
-Math.min(
-1,
-p.z+0.5
-)
-);
-
-return[
-roundJSON(u),
-roundJSON(v)
-];
 
 });
 
@@ -2006,43 +2030,36 @@ let maxX=-Infinity;
 let maxY=-Infinity;
 let maxZ=-Infinity;
 
-const polyMeshes=[];
-
-objects.forEach(function(o){
-
-const mesh=createPolyMesh(o);
-
-polyMeshes.push({
-name:o.name,
-mesh:mesh
-});
-
-o.geometry.vertices.forEach(function(p){
-
-const q=rotatePoint(p,o);
-
-minX=Math.min(minX,q.x);
-minY=Math.min(minY,q.y);
-minZ=Math.min(minZ,q.z);
-
-maxX=Math.max(maxX,q.x);
-maxY=Math.max(maxY,q.y);
-maxZ=Math.max(maxZ,q.z);
-
-});
-
-});
-
 const bones=[];
 
-polyMeshes.forEach(function(item,index){
+objects.forEach(function(o,index){
+
+const positions=o.geometry.vertices.map(function(p){
+
+return rotatePoint(p,o);
+
+});
+
+positions.forEach(function(p){
+
+minX=Math.min(minX,p.x);
+minY=Math.min(minY,p.y);
+minZ=Math.min(minZ,p.z);
+
+maxX=Math.max(maxX,p.x);
+maxY=Math.max(maxY,p.y);
+maxZ=Math.max(maxZ,p.z);
+
+});
 
 bones.push({
 name:"bb_"+index,
-pivot:[0,0,0],
-poly_mesh:{
-[item.name.replace(/[^a-zA-Z0-9_]/g,"_")]:item.mesh
-}
+pivot:[
+roundJSON(o.position.x),
+roundJSON(o.position.y),
+roundJSON(o.position.z)
+],
+poly_mesh:createPolyMesh(o)
 });
 
 });
@@ -2091,7 +2108,7 @@ const url=URL.createObjectURL(blob);
 const a=document.createElement("a");
 
 a.href=url;
-a.download="hiro_3d_model.json";
+a.download="hiro_3d_model.geo.json";
 
 document.body.appendChild(a);
 a.click();
