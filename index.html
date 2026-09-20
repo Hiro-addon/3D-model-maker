@@ -16,7 +16,7 @@ margin:0;
 width:100%;
 height:100%;
 overflow:hidden;
-background:#111;
+background:#0d0d0f;
 color:#fff;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
@@ -27,15 +27,16 @@ font:inherit;
 
 button{
 border:0;
-border-radius:8px;
-background:#333;
 color:#fff;
-padding:9px 10px;
+background:#29292d;
+border-radius:12px;
+font-weight:600;
 touch-action:manipulation;
 }
 
 button:active{
 transform:scale(.96);
+background:#444;
 }
 
 #app{
@@ -46,21 +47,26 @@ flex-direction:column;
 }
 
 #top{
-height:54px;
+height:58px;
 flex-shrink:0;
 display:flex;
 align-items:center;
-gap:7px;
-padding:7px;
-background:#1b1b1b;
-border-bottom:1px solid #333;
+gap:8px;
+padding:8px 10px;
+background:#18181b;
+border-bottom:1px solid #303035;
 }
 
 #title{
-font-weight:700;
 font-size:17px;
+font-weight:800;
 margin-right:auto;
 white-space:nowrap;
+}
+
+.topButton{
+height:42px;
+padding:0 13px;
 }
 
 #main{
@@ -70,11 +76,11 @@ min-height:0;
 }
 
 #left{
-width:170px;
+width:190px;
 flex-shrink:0;
-background:#1b1b1b;
-border-right:1px solid #333;
-padding:9px;
+background:#18181b;
+border-right:1px solid #303035;
+padding:12px;
 overflow:auto;
 }
 
@@ -83,79 +89,114 @@ position:relative;
 flex:1;
 min-width:0;
 min-height:0;
+background:#101014;
 overflow:hidden;
-background:#101010;
 }
 
 #right{
-width:230px;
+width:250px;
 flex-shrink:0;
-background:#1b1b1b;
-border-left:1px solid #333;
-padding:9px;
+background:#18181b;
+border-left:1px solid #303035;
+padding:12px;
 overflow:auto;
 }
 
-h3{
-font-size:13px;
-margin:4px 0 9px;
-color:#ddd;
+.sectionTitle{
+font-size:12px;
+font-weight:800;
+color:#aaa;
+margin:3px 0 9px;
 }
 
-.add{
-width:100%;
-margin-bottom:6px;
+.addGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.addButton{
+height:70px;
+font-size:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+background:#252529;
+}
+
+.addIcon{
+font-size:25px;
+}
+
+#objectList{
+display:flex;
+flex-direction:column;
+gap:6px;
 }
 
 .object{
+min-height:46px;
 width:100%;
-display:block;
+padding:8px 10px;
 text-align:left;
-margin-bottom:5px;
-background:#292929;
+background:#252529;
+border:1px solid transparent;
 }
 
 .object.selected{
-background:#555;
+background:#3a3a40;
+border-color:#777;
 }
 
 #canvas{
+position:absolute;
+inset:0;
 width:100%;
 height:100%;
-display:block;
 touch-action:none;
 }
 
 #hint{
 position:absolute;
-left:10px;
-bottom:10px;
-padding:7px 10px;
-background:rgba(0,0,0,.6);
-border-radius:8px;
+left:50%;
+bottom:15px;
+transform:translateX(-50%);
+padding:9px 14px;
+border-radius:12px;
+background:rgba(0,0,0,.65);
 font-size:11px;
-pointer-events:none;
 color:#ccc;
+white-space:nowrap;
+pointer-events:none;
+}
+
+.editorTitle{
+font-size:15px;
+font-weight:800;
+margin-bottom:14px;
 }
 
 .field{
-margin-bottom:9px;
+margin-bottom:13px;
 }
 
 .field label{
 display:block;
 font-size:11px;
-color:#aaa;
-margin-bottom:4px;
+font-weight:700;
+color:#999;
+margin-bottom:6px;
 }
 
 .field input{
 width:100%;
-height:36px;
-padding:5px 7px;
-border-radius:6px;
-border:1px solid #444;
-background:#292929;
+height:42px;
+padding:0 10px;
+border:1px solid #3d3d43;
+border-radius:9px;
+background:#252529;
 color:#fff;
 outline:none;
 }
@@ -163,65 +204,127 @@ outline:none;
 .row{
 display:grid;
 grid-template-columns:1fr 1fr 1fr;
-gap:4px;
+gap:6px;
 }
 
 #color{
-padding:2px;
-height:36px;
+padding:4px;
 }
 
 .delete{
 width:100%;
-background:#8c2222;
-margin-top:5px;
+height:44px;
+margin-top:8px;
+background:#8d2929;
+}
+
+.delete:active{
+background:#b33a3a;
 }
 
 #empty{
-font-size:12px;
-line-height:1.5;
+padding:12px;
+border-radius:10px;
+background:#222226;
 color:#888;
+font-size:12px;
+line-height:1.6;
 }
 
-@media(max-width:700px){
+#bottom{
+display:none;
+}
+
+@media(max-width:800px){
 
 #left{
-width:115px;
+width:150px;
 }
 
 #right{
-width:180px;
+width:210px;
+}
+
+}
+
+@media(max-width:650px){
+
+#top{
+height:54px;
 }
 
 #title{
 font-size:14px;
 }
 
-#top button{
+.topButton{
+height:38px;
 font-size:11px;
-padding:8px 7px;
+padding:0 9px;
 }
-
-.add,
-.object{
-font-size:11px;
-padding:8px 5px;
-}
-
-}
-
-@media(max-width:480px){
 
 #left{
-width:90px;
+display:none;
 }
 
 #right{
-width:150px;
+position:absolute;
+z-index:20;
+right:0;
+top:0;
+bottom:0;
+width:230px;
+transform:translateX(100%);
+transition:transform .2s ease;
+box-shadow:-10px 0 30px rgba(0,0,0,.35);
+}
+
+#right.open{
+transform:translateX(0);
+}
+
+#bottom{
+display:grid;
+grid-template-columns:1fr 1fr 1fr 1fr;
+height:68px;
+flex-shrink:0;
+background:#18181b;
+border-top:1px solid #303035;
+padding:7px;
+gap:6px;
+z-index:30;
+}
+
+.bottomButton{
+height:54px;
+font-size:10px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:2px;
+}
+
+.bottomIcon{
+font-size:20px;
 }
 
 #hint{
+bottom:14px;
 font-size:9px;
+}
+
+}
+
+@media(max-width:400px){
+
+#right{
+width:205px;
+}
+
+.topButton{
+padding:0 6px;
+font-size:10px;
 }
 
 }
@@ -236,8 +339,13 @@ font-size:9px;
 
 <div id="title">Hiro 3D Model Maker</div>
 
-<button id="resetButton">視点リセット</button>
-<button id="exportButton">OBJ保存</button>
+<button class="topButton" id="resetButton">
+視点リセット
+</button>
+
+<button class="topButton" id="exportButton">
+OBJ保存
+</button>
 
 </div>
 
@@ -245,13 +353,32 @@ font-size:9px;
 
 <div id="left">
 
-<h3>パーツ追加</h3>
+<div class="sectionTitle">
+パーツ追加
+</div>
 
-<button class="add" id="cubeButton">＋ 立方体</button>
-<button class="add" id="sphereButton">＋ 球</button>
-<button class="add" id="cylinderButton">＋ 円柱</button>
+<div class="addGrid">
 
-<h3 style="margin-top:18px">パーツ一覧</h3>
+<button class="addButton" id="cubeButton">
+<span class="addIcon">⬜</span>
+立方体
+</button>
+
+<button class="addButton" id="sphereButton">
+<span class="addIcon">●</span>
+球
+</button>
+
+<button class="addButton" id="cylinderButton">
+<span class="addIcon">⬭</span>
+円柱
+</button>
+
+</div>
+
+<div class="sectionTitle" style="margin-top:20px">
+パーツ一覧
+</div>
 
 <div id="objectList"></div>
 
@@ -262,18 +389,19 @@ font-size:9px;
 <canvas id="canvas"></canvas>
 
 <div id="hint">
-ドラッグ：視点回転　｜　ピンチ：拡大・縮小
+1本指：回転　｜　2本指：拡大・縮小
 </div>
 
 </div>
 
 <div id="right">
 
-<h3>パーツ設定</h3>
+<div class="editorTitle">
+パーツ設定
+</div>
 
 <div id="empty">
-パーツを追加すると<br>
-ここから編集できます。
+パーツを追加すると、ここから位置・回転・サイズ・色を変更できます。
 </div>
 
 <div id="editor" style="display:none">
@@ -285,34 +413,43 @@ font-size:9px;
 
 <div class="field">
 <label>位置 X / Y / Z</label>
+
 <div class="row">
 <input id="px" type="number" step="0.1">
 <input id="py" type="number" step="0.1">
 <input id="pz" type="number" step="0.1">
 </div>
+
 </div>
 
 <div class="field">
 <label>回転 X / Y / Z</label>
+
 <div class="row">
 <input id="rx" type="number" step="1">
 <input id="ry" type="number" step="1">
 <input id="rz" type="number" step="1">
 </div>
+
 </div>
 
 <div class="field">
 <label>サイズ X / Y / Z</label>
+
 <div class="row">
 <input id="sx" type="number" step="0.1" min="0.1">
 <input id="sy" type="number" step="0.1" min="0.1">
 <input id="sz" type="number" step="0.1" min="0.1">
 </div>
+
 </div>
 
 <div class="field">
+
 <label>色</label>
+
 <input id="color" type="color" value="#4da3ff">
+
 </div>
 
 <button class="delete" id="deleteButton">
@@ -322,6 +459,30 @@ font-size:9px;
 </div>
 
 </div>
+
+</div>
+
+<div id="bottom">
+
+<button class="bottomButton" id="mobileAdd">
+<span class="bottomIcon">＋</span>
+追加
+</button>
+
+<button class="bottomButton" id="mobileObjects">
+<span class="bottomIcon">☷</span>
+パーツ
+</button>
+
+<button class="bottomButton" id="mobileEdit">
+<span class="bottomIcon">⚙</span>
+編集
+</button>
+
+<button class="bottomButton" id="mobileReset">
+<span class="bottomIcon">⟳</span>
+視点
+</button>
 
 </div>
 
@@ -352,11 +513,13 @@ distance:7
 };
 
 let dragging=false;
+let dragPointerId=null;
 let lastX=0;
 let lastY=0;
 
 let pinchStartDistance=0;
-let pinchStartZoom=0;
+let pinchStartZoom=7;
+let isPinching=false;
 
 const faces=[
 [0,1,2,3],
@@ -370,7 +533,7 @@ const faces=[
 const baseColors=[
 [0.75,0.75,0.75],
 [0.55,0.55,0.55],
-[0.9,0.9,0.9],
+[0.90,0.90,0.90],
 [0.65,0.65,0.65],
 [0.82,0.82,0.82],
 [0.48,0.48,0.48]
@@ -378,19 +541,40 @@ const baseColors=[
 
 function resize(){
 
-const dpr=Math.min(window.devicePixelRatio||1,2);
+const dpr=Math.min(
+window.devicePixelRatio||1,
+2
+);
 
 const rect=canvas.getBoundingClientRect();
 
-canvas.width=Math.max(1,Math.floor(rect.width*dpr));
-canvas.height=Math.max(1,Math.floor(rect.height*dpr));
+canvas.width=Math.max(
+1,
+Math.floor(rect.width*dpr)
+);
 
-ctx.setTransform(dpr,0,0,dpr,0,0);
+canvas.height=Math.max(
+1,
+Math.floor(rect.height*dpr)
+);
+
+ctx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
 
 draw();
+
 }
 
-window.addEventListener("resize",resize);
+window.addEventListener(
+"resize",
+resize
+);
 
 function addCube(){
 
@@ -452,6 +636,7 @@ color:"#72d66f"
 function addObject(obj){
 
 objects.push(obj);
+
 selected=obj;
 
 updateList();
@@ -462,7 +647,8 @@ draw();
 
 function updateList(){
 
-const list=document.getElementById("objectList");
+const list=
+document.getElementById("objectList");
 
 list.innerHTML="";
 
@@ -478,7 +664,9 @@ b.classList.add("selected");
 
 b.textContent=obj.name;
 
-b.addEventListener("click",function(){
+b.addEventListener(
+"click",
+function(){
 
 selected=obj;
 
@@ -486,7 +674,8 @@ updateList();
 updateEditor();
 draw();
 
-});
+}
+);
 
 list.appendChild(b);
 
@@ -496,8 +685,11 @@ list.appendChild(b);
 
 function updateEditor(){
 
-const empty=document.getElementById("empty");
-const editor=document.getElementById("editor");
+const empty=
+document.getElementById("empty");
+
+const editor=
+document.getElementById("editor");
 
 if(!selected){
 
@@ -505,32 +697,52 @@ empty.style.display="block";
 editor.style.display="none";
 
 return;
+
 }
 
 empty.style.display="none";
 editor.style.display="block";
 
-document.getElementById("name").value=selected.name;
+document.getElementById("name").value=
+selected.name;
 
-document.getElementById("px").value=selected.x;
-document.getElementById("py").value=selected.y;
-document.getElementById("pz").value=selected.z;
+document.getElementById("px").value=
+selected.x;
 
-document.getElementById("rx").value=selected.rx;
-document.getElementById("ry").value=selected.ry;
-document.getElementById("rz").value=selected.rz;
+document.getElementById("py").value=
+selected.y;
 
-document.getElementById("sx").value=selected.sx;
-document.getElementById("sy").value=selected.sy;
-document.getElementById("sz").value=selected.sz;
+document.getElementById("pz").value=
+selected.z;
 
-document.getElementById("color").value=selected.color;
+document.getElementById("rx").value=
+selected.rx;
+
+document.getElementById("ry").value=
+selected.ry;
+
+document.getElementById("rz").value=
+selected.rz;
+
+document.getElementById("sx").value=
+selected.sx;
+
+document.getElementById("sy").value=
+selected.sy;
+
+document.getElementById("sz").value=
+selected.sz;
+
+document.getElementById("color").value=
+selected.color;
 
 }
 
-function readNumber(id, fallback){
+function readNumber(id,fallback){
 
-const v=parseFloat(document.getElementById(id).value);
+const v=parseFloat(
+document.getElementById(id).value
+);
 
 return Number.isFinite(v)?v:fallback;
 
@@ -540,7 +752,8 @@ function updateSelected(){
 
 if(!selected)return;
 
-selected.name=document.getElementById("name").value||"Object";
+selected.name=
+document.getElementById("name").value||"Object";
 
 selected.x=readNumber("px",0);
 selected.y=readNumber("py",0);
@@ -550,11 +763,23 @@ selected.rx=readNumber("rx",0);
 selected.ry=readNumber("ry",0);
 selected.rz=readNumber("rz",0);
 
-selected.sx=Math.max(.05,readNumber("sx",1));
-selected.sy=Math.max(.05,readNumber("sy",1));
-selected.sz=Math.max(.05,readNumber("sz",1));
+selected.sx=Math.max(
+.05,
+readNumber("sx",1)
+);
 
-selected.color=document.getElementById("color").value;
+selected.sy=Math.max(
+.05,
+readNumber("sy",1)
+);
+
+selected.sz=Math.max(
+.05,
+readNumber("sz",1)
+);
+
+selected.color=
+document.getElementById("color").value;
 
 updateList();
 draw();
@@ -569,37 +794,48 @@ draw();
 "color"
 ].forEach(function(id){
 
-document.getElementById(id).addEventListener(
+document.getElementById(id)
+.addEventListener(
 "input",
 updateSelected
 );
 
 });
 
-document.getElementById("cubeButton").addEventListener(
+document.getElementById(
+"cubeButton"
+).addEventListener(
 "click",
 addCube
 );
 
-document.getElementById("sphereButton").addEventListener(
+document.getElementById(
+"sphereButton"
+).addEventListener(
 "click",
 addSphere
 );
 
-document.getElementById("cylinderButton").addEventListener(
+document.getElementById(
+"cylinderButton"
+).addEventListener(
 "click",
 addCylinder
 );
 
-document.getElementById("deleteButton").addEventListener(
+document.getElementById(
+"deleteButton"
+).addEventListener(
 "click",
 function(){
 
 if(!selected)return;
 
-objects=objects.filter(function(o){
+objects=objects.filter(
+function(o){
 return o!==selected;
-});
+}
+);
 
 selected=null;
 
@@ -610,15 +846,65 @@ draw();
 }
 );
 
-document.getElementById("resetButton").addEventListener(
-"click",
-function(){
+function resetCamera(){
 
 camera.yaw=-0.7;
 camera.pitch=0.45;
 camera.distance=7;
 
 draw();
+
+}
+
+document.getElementById(
+"resetButton"
+).addEventListener(
+"click",
+resetCamera
+);
+
+document.getElementById(
+"mobileReset"
+).addEventListener(
+"click",
+resetCamera
+);
+
+document.getElementById(
+"mobileEdit"
+).addEventListener(
+"click",
+function(){
+
+const right=
+document.getElementById("right");
+
+right.classList.toggle("open");
+
+}
+);
+
+document.getElementById(
+"mobileAdd"
+).addEventListener(
+"click",
+function(){
+
+addCube();
+
+}
+);
+
+document.getElementById(
+"mobileObjects"
+).addEventListener(
+"click",
+function(){
+
+const right=
+document.getElementById("right");
+
+right.classList.toggle("open");
 
 }
 );
@@ -629,16 +915,28 @@ hex=hex.replace("#","");
 
 if(hex.length===3){
 
-hex=hex[0]+hex[0]+
+hex=
+hex[0]+hex[0]+
 hex[1]+hex[1]+
 hex[2]+hex[2];
 
 }
 
 return [
-parseInt(hex.substring(0,2),16)/255,
-parseInt(hex.substring(2,4),16)/255,
-parseInt(hex.substring(4,6),16)/255
+parseInt(
+hex.substring(0,2),
+16
+)/255,
+
+parseInt(
+hex.substring(2,4),
+16
+)/255,
+
+parseInt(
+hex.substring(4,6),
+16
+)/255
 ];
 
 }
@@ -676,7 +974,11 @@ let y2=x*s+y*c;
 x=x2;
 y=y2;
 
-return {x:x,y:y,z:z};
+return {
+x:x,
+y:y,
+z:z
+};
 
 }
 
@@ -685,25 +987,38 @@ function project(p){
 const cy=Math.cos(camera.yaw);
 const sy=Math.sin(camera.yaw);
 
-let x=p.x*cy-p.z*sy;
-let z=p.x*sy+p.z*cy;
+let x=
+p.x*cy-
+p.z*sy;
+
+let z=
+p.x*sy+
+p.z*cy;
 
 const cp=Math.cos(camera.pitch);
 const sp=Math.sin(camera.pitch);
 
-let y=p.y*cp-z*sp;
-z=p.y*sp+z*cp;
+let y=
+p.y*cp-
+z*sp;
 
-const rect=canvas.getBoundingClientRect();
+z=
+p.y*sp+
+z*cp;
 
-const scale=Math.min(rect.width,rect.height)/camera.distance;
+const rect=
+canvas.getBoundingClientRect();
 
-const depth=6+z;
+const scale=
+Math.min(
+rect.width,
+rect.height
+)/camera.distance;
 
 return {
 x:rect.width/2+x*scale,
 y:rect.height/2-y*scale,
-z:depth
+z:6+z
 };
 
 }
@@ -746,7 +1061,8 @@ return r;
 
 function drawGrid(){
 
-const rect=canvas.getBoundingClientRect();
+const rect=
+canvas.getBoundingClientRect();
 
 ctx.clearRect(
 0,
@@ -755,23 +1071,27 @@ rect.width,
 rect.height
 );
 
-ctx.fillStyle="#101010";
-ctx.fillRect(0,0,rect.width,rect.height);
+ctx.fillStyle="#101014";
 
-const size=10;
+ctx.fillRect(
+0,
+0,
+rect.width,
+rect.height
+);
 
 for(let i=-10;i<=10;i++){
 
 drawLine(
-{x:i,y:0,z:-size},
-{x:i,y:0,z:size},
-"#282828"
+{x:i,y:0,z:-10},
+{x:i,y:0,z:10},
+"#27272b"
 );
 
 drawLine(
-{x:-size,y:0,z:i},
-{x:size,y:0,z:i},
-"#282828"
+{x:-10,y:0,z:i},
+{x:10,y:0,z:i},
+"#27272b"
 );
 
 }
@@ -799,28 +1119,38 @@ ctx.strokeStyle=color;
 ctx.lineWidth=1;
 
 ctx.beginPath();
-ctx.moveTo(pa.x,pa.y);
-ctx.lineTo(pb.x,pb.y);
+
+ctx.moveTo(
+pa.x,
+pa.y
+);
+
+ctx.lineTo(
+pb.x,
+pb.y
+);
+
 ctx.stroke();
 
 }
 
 function drawCube(obj){
 
-const vertices=cubeVertices(obj);
+const vertices=
+cubeVertices(obj);
 
-const projected=vertices.map(project);
+const projected=
+vertices.map(project);
 
 let list=[];
 
-faces.forEach(function(face,index){
-
-const p0=vertices[face[0]];
-const p1=vertices[face[1]];
-const p2=vertices[face[2]];
+faces.forEach(
+function(face,index){
 
 const depth=
-p0.z+p1.z+p2.z;
+vertices[face[0]].z+
+vertices[face[1]].z+
+vertices[face[2]].z;
 
 list.push({
 face:face,
@@ -828,15 +1158,20 @@ index:index,
 depth:depth
 });
 
-});
+}
+);
 
-list.sort(function(a,b){
+list.sort(
+function(a,b){
 return a.depth-b.depth;
-});
+}
+);
 
-const rgb=hexToRGB(obj.color);
+const rgb=
+hexToRGB(obj.color);
 
-list.forEach(function(item){
+list.forEach(
+function(item){
 
 const face=item.face;
 
@@ -847,7 +1182,11 @@ projected[face[0]].x,
 projected[face[0]].y
 );
 
-for(let i=1;i<face.length;i++){
+for(
+let i=1;
+i<face.length;
+i++
+){
 
 ctx.lineTo(
 projected[face[i]].x,
@@ -858,72 +1197,69 @@ projected[face[i]].y
 
 ctx.closePath();
 
-const shade=baseColors[item.index];
+const shade=
+baseColors[item.index];
 
-const r=Math.floor(rgb[0]*shade[0]*255);
-const g=Math.floor(rgb[1]*shade[1]*255);
-const b=Math.floor(rgb[2]*shade[2]*255);
+const r=Math.floor(
+rgb[0]*shade[0]*255
+);
 
-ctx.fillStyle="rgb("+r+","+g+","+b+")";
+const g=Math.floor(
+rgb[1]*shade[1]*255
+);
+
+const b=Math.floor(
+rgb[2]*shade[2]*255
+);
+
+ctx.fillStyle=
+"rgb("+r+","+g+","+b+")";
+
 ctx.fill();
 
 ctx.strokeStyle=
-obj===selected?"#fff":"#111";
+obj===selected
+?"#fff"
+:"#111";
 
 ctx.lineWidth=
-obj===selected?2:1;
-
-ctx.stroke();
-
-});
-
-if(obj===selected){
-
-const center=project({
-x:obj.x,
-y:obj.y,
-z:obj.z
-});
-
-ctx.strokeStyle="#fff";
-ctx.beginPath();
-
-ctx.arc(
-center.x,
-center.y,
-5,
-0,
-Math.PI*2
-);
+obj===selected
+?2
+:1;
 
 ctx.stroke();
 
 }
+);
 
 }
 
 function drawSphere(obj){
 
-const center=project({
+const center=
+project({
 x:obj.x,
 y:obj.y,
 z:obj.z
 });
 
-const rect=canvas.getBoundingClientRect();
+const rect=
+canvas.getBoundingClientRect();
 
 const radius=
-Math.min(rect.width,rect.height)
-*0.075
-*Math.max(
+Math.min(
+rect.width,
+rect.height
+)*.075*
+Math.max(
 obj.sx,
 obj.sy,
 obj.sz
-)/camera.distance;
+)/
+camera.distance;
 
-const rgb=hexToRGB(obj.color);
-
-const gradient=ctx.createRadialGradient(
+const gradient=
+ctx.createRadialGradient(
 center.x-radius*.35,
 center.y-radius*.35,
 radius*.1,
@@ -934,10 +1270,7 @@ radius
 
 gradient.addColorStop(
 0,
-"rgb("+
-Math.min(255,rgb[0]*255+80)+","+
-Math.min(255,rgb[1]*255+80)+","+
-Math.min(255,rgb[2]*255+80)+")"
+"#ffffff"
 );
 
 gradient.addColorStop(
@@ -959,33 +1292,50 @@ Math.PI*2
 
 ctx.fill();
 
-ctx.strokeStyle=obj===selected?"#fff":"#111";
-ctx.lineWidth=obj===selected?2:1;
+ctx.strokeStyle=
+obj===selected
+?"#fff"
+:"#111";
+
+ctx.lineWidth=
+obj===selected
+?2
+:1;
+
 ctx.stroke();
 
 }
 
 function drawCylinder(obj){
 
-const center=project({
+const center=
+project({
 x:obj.x,
 y:obj.y,
 z:obj.z
 });
 
-const rect=canvas.getBoundingClientRect();
+const rect=
+canvas.getBoundingClientRect();
 
 const rx=
 rect.width*.055*
-obj.sx/camera.distance;
+obj.sx/
+camera.distance;
 
 const ry=
 rect.height*.09*
-obj.sy/camera.distance;
-
-const rgb=hexToRGB(obj.color);
+obj.sy/
+camera.distance;
 
 ctx.fillStyle=obj.color;
+
+ctx.fillRect(
+center.x-rx,
+center.y-ry,
+rx*2,
+ry*2
+);
 
 ctx.beginPath();
 
@@ -1000,13 +1350,6 @@ Math.PI*2
 );
 
 ctx.fill();
-
-ctx.fillRect(
-center.x-rx,
-center.y-ry,
-rx*2,
-ry*2
-);
 
 ctx.beginPath();
 
@@ -1022,8 +1365,15 @@ Math.PI*2
 
 ctx.fill();
 
-ctx.strokeStyle=obj===selected?"#fff":"#111";
-ctx.lineWidth=obj===selected?2:1;
+ctx.strokeStyle=
+obj===selected
+?"#fff"
+:"#111";
+
+ctx.lineWidth=
+obj===selected
+?2
+:1;
 
 ctx.beginPath();
 
@@ -1059,13 +1409,16 @@ function draw(){
 
 drawGrid();
 
-const sorted=objects.slice().sort(function(a,b){
+const sorted=
+objects.slice().sort(
+function(a,b){
+return (a.z+a.y)-
+(b.z+b.y);
+}
+);
 
-return (a.z+a.y)-(b.z+b.y);
-
-});
-
-sorted.forEach(function(obj){
+sorted.forEach(
+function(obj){
 
 if(obj.type==="cube"){
 drawCube(obj);
@@ -1079,18 +1432,20 @@ if(obj.type==="cylinder"){
 drawCylinder(obj);
 }
 
-});
+}
+);
 
 }
 
-function pointerPosition(e){
+function getTouchDistance(touches){
 
-const rect=canvas.getBoundingClientRect();
+const a=touches[0];
+const b=touches[1];
 
-return {
-x:e.clientX-rect.left,
-y:e.clientY-rect.top
-};
+return Math.hypot(
+a.clientX-b.clientX,
+a.clientY-b.clientY
+);
 
 }
 
@@ -1098,14 +1453,43 @@ canvas.addEventListener(
 "pointerdown",
 function(e){
 
-if(e.pointerType==="mouse" && e.button!==0)return;
+if(e.pointerType==="touch"){
+
+if(e.isPrimary){
+
+if(
+e.pointerId!==dragPointerId &&
+!isPinching
+){
 
 dragging=true;
+dragPointerId=e.pointerId;
 
 lastX=e.clientX;
 lastY=e.clientY;
 
-canvas.setPointerCapture(e.pointerId);
+}
+
+}
+
+return;
+
+}
+
+if(e.pointerType==="mouse" && e.button!==0){
+return;
+}
+
+dragging=true;
+
+dragPointerId=e.pointerId;
+
+lastX=e.clientX;
+lastY=e.clientY;
+
+canvas.setPointerCapture(
+e.pointerId
+);
 
 }
 );
@@ -1114,17 +1498,31 @@ canvas.addEventListener(
 "pointermove",
 function(e){
 
-if(!dragging)return;
+if(
+!dragging ||
+isPinching ||
+e.pointerId!==dragPointerId
+){
+return;
+}
 
-const dx=e.clientX-lastX;
-const dy=e.clientY-lastY;
+const dx=
+e.clientX-lastX;
 
-camera.yaw+=dx*.008;
+const dy=
+e.clientY-lastY;
+
+camera.yaw-=dx*.008;
+
 camera.pitch+=dy*.008;
 
-camera.pitch=Math.max(
+camera.pitch=
+Math.max(
 -1.4,
-Math.min(1.4,camera.pitch)
+Math.min(
+1.4,
+camera.pitch
+)
 );
 
 lastX=e.clientX;
@@ -1137,33 +1535,108 @@ draw();
 
 canvas.addEventListener(
 "pointerup",
-function(){
+function(e){
+
+if(
+e.pointerId===
+dragPointerId
+){
 
 dragging=false;
+dragPointerId=null;
+
+}
 
 }
 );
 
 canvas.addEventListener(
 "pointercancel",
-function(){
+function(e){
+
+if(
+e.pointerId===
+dragPointerId
+){
 
 dragging=false;
+dragPointerId=null;
+
+}
 
 }
 );
 
 canvas.addEventListener(
-"wheel",
+"touchstart",
 function(e){
+
+if(e.touches.length===2){
 
 e.preventDefault();
 
-camera.distance+=e.deltaY*.01;
+isPinching=true;
+dragging=false;
+dragPointerId=null;
 
-camera.distance=Math.max(
+pinchStartDistance=
+getTouchDistance(e.touches);
+
+pinchStartZoom=
+camera.distance;
+
+}
+
+},
+{passive:false}
+);
+
+canvas.addEventListener(
+"touchmove",
+function(e){
+
+if(e.touches.length!==2){
+return;
+}
+
+e.preventDefault();
+
+if(!isPinching){
+
+isPinching=true;
+
+pinchStartDistance=
+getTouchDistance(e.touches);
+
+pinchStartZoom=
+camera.distance;
+
+}
+
+const currentDistance=
+getTouchDistance(e.touches);
+
+if(
+pinchStartDistance<=0 ||
+currentDistance<=0
+){
+return;
+}
+
+const ratio=
+pinchStartDistance/
+currentDistance;
+
+camera.distance=
+pinchStartZoom*ratio;
+
+camera.distance=
+Math.max(
 2,
-Math.min(30,camera.distance)
+Math.min(
+30,
+camera.distance
+)
 );
 
 draw();
@@ -1173,106 +1646,79 @@ draw();
 );
 
 canvas.addEventListener(
-"touchstart",
+"touchend",
 function(e){
 
-if(e.touches.length===2){
+if(e.touches.length<2){
 
-pinchStartDistance=getTouchDistance(e.touches);
-pinchStartZoom=camera.distance;
+isPinching=false;
+pinchStartDistance=0;
 
 }
 
 },
-{passive:true}
+{passive:false}
 );
 
 canvas.addEventListener(
-"touchmove",
-function(e){
-
-if(e.touches.length!==2)return;
-
-const distance=getTouchDistance(e.touches);
-
-if(pinchStartDistance<=0)return;
-
-const ratio=pinchStartDistance/distance;
-
-camera.distance=
-Math.max(
-2,
-Math.min(
-30,
-pinchStartZoom*ratio
-)
-);
-
-draw();
-
-},
-{passive:true}
-);
-
-canvas.addEventListener(
-"touchend",
+"touchcancel",
 function(){
 
-if(!event || !event.touches || event.touches.length<2){
+isPinching=false;
 pinchStartDistance=0;
-}
+dragging=false;
+dragPointerId=null;
 
 },
-{passive:true}
+{passive:false}
 );
-
-function getTouchDistance(e){
-
-const a=e.touches[0];
-const b=e.touches[1];
-
-return Math.hypot(
-a.clientX-b.clientX,
-a.clientY-b.clientY
-);
-
-}
 
 canvas.addEventListener(
 "click",
 function(e){
 
-if(dragging)return;
+if(isPinching)return;
 
-const rect=canvas.getBoundingClientRect();
+const rect=
+canvas.getBoundingClientRect();
 
-const x=e.clientX-rect.left;
-const y=e.clientY-rect.top;
+const x=
+e.clientX-rect.left;
+
+const y=
+e.clientY-rect.top;
 
 let nearest=null;
 let distance=Infinity;
 
-objects.forEach(function(obj){
+objects.forEach(
+function(obj){
 
-const p=project({
+const p=
+project({
 x:obj.x,
 y:obj.y,
 z:obj.z
 });
 
-const d=Math.hypot(
+const d=
+Math.hypot(
 p.x-x,
 p.y-y
 );
 
-if(d<distance && d<80){
+if(
+d<distance &&
+d<80
+){
 
 distance=d;
 nearest=obj;
 
 }
 
-});
+}
+);
 
 if(nearest){
 
@@ -1300,7 +1746,9 @@ const vertices=[
 [-.5,.5,.5]
 ];
 
-const transformed=vertices.map(function(v){
+const transformed=
+vertices.map(
+function(v){
 
 let p={
 x:v[0]*obj.sx,
@@ -1321,20 +1769,24 @@ p.z+=obj.z;
 
 return p;
 
-});
+}
+);
 
 let text="";
 
-transformed.forEach(function(v){
+transformed.forEach(
+function(v){
 
 text+="v "+
 v.x.toFixed(5)+" "+
 v.y.toFixed(5)+" "+
 v.z.toFixed(5)+"\n";
 
-});
+}
+);
 
-faces.forEach(function(f){
+faces.forEach(
+function(f){
 
 text+="f "+
 (f[0]+1+offset)+" "+
@@ -1342,11 +1794,237 @@ text+="f "+
 (f[2]+1+offset)+" "+
 (f[3]+1+offset)+"\n";
 
-});
+}
+);
 
-return {
+return{
 text:text,
 count:transformed.length
+};
+
+}
+
+function makeSphereOBJ(obj,offset){
+
+const vertices=[];
+const fs=[];
+
+const lat=16;
+const lon=24;
+
+for(
+let i=0;
+i<=lat;
+i++
+){
+
+const v=i/lat;
+const theta=v*Math.PI;
+
+for(
+let j=0;
+j<lon;
+j++
+){
+
+const u=j/lon;
+const phi=u*Math.PI*2;
+
+let p={
+x:Math.sin(theta)*
+Math.cos(phi)*
+obj.sx,
+
+y:Math.cos(theta)*
+obj.sy,
+
+z:Math.sin(theta)*
+Math.sin(phi)*
+obj.sz
+};
+
+p=rotatePoint(
+p,
+obj.rx*Math.PI/180,
+obj.ry*Math.PI/180,
+obj.rz*Math.PI/180
+);
+
+p.x+=obj.x;
+p.y+=obj.y;
+p.z+=obj.z;
+
+vertices.push(p);
+
+}
+
+}
+
+for(
+let i=0;
+i<lat;
+i++
+){
+
+for(
+let j=0;
+j<lon;
+j++
+){
+
+const a=
+i*lon+j;
+
+const b=
+i*lon+
+(j+1)%lon;
+
+const c=
+(i+1)*lon+
+(j+1)%lon;
+
+const d=
+(i+1)*lon+j;
+
+fs.push([a,b,c]);
+fs.push([a,c,d]);
+
+}
+
+}
+
+let text="";
+
+vertices.forEach(
+function(v){
+
+text+="v "+
+v.x.toFixed(5)+" "+
+v.y.toFixed(5)+" "+
+v.z.toFixed(5)+"\n";
+
+}
+);
+
+fs.forEach(
+function(f){
+
+text+="f "+
+(f[0]+1+offset)+" "+
+(f[1]+1+offset)+" "+
+(f[2]+1+offset)+"\n";
+
+}
+);
+
+return{
+text:text,
+count:vertices.length
+};
+
+}
+
+function makeCylinderOBJ(obj,offset){
+
+const vertices=[];
+const fs=[];
+const segments=24;
+
+for(
+let yIndex=0;
+yIndex<=1;
+yIndex++
+){
+
+const y=
+(yIndex-.5)*
+obj.sy;
+
+for(
+let i=0;
+i<segments;
+i++
+){
+
+const a=
+i/segments*
+Math.PI*2;
+
+let p={
+x:Math.cos(a)*
+.5*
+obj.sx,
+
+y:y,
+
+z:Math.sin(a)*
+.5*
+obj.sz
+};
+
+p=rotatePoint(
+p,
+obj.rx*Math.PI/180,
+obj.ry*Math.PI/180,
+obj.rz*Math.PI/180
+);
+
+p.x+=obj.x;
+p.y+=obj.y;
+p.z+=obj.z;
+
+vertices.push(p);
+
+}
+
+}
+
+for(
+let i=0;
+i<segments;
+i++
+){
+
+const n=
+(i+1)%segments;
+
+fs.push([
+i,
+n,
+segments+n,
+segments+i
+]);
+
+}
+
+let text="";
+
+vertices.forEach(
+function(v){
+
+text+="v "+
+v.x.toFixed(5)+" "+
+v.y.toFixed(5)+" "+
+v.z.toFixed(5)+"\n";
+
+}
+);
+
+fs.forEach(
+function(f){
+
+text+="f "+
+(f[0]+1+offset)+" "+
+(f[1]+1+offset)+" "+
+(f[2]+1+offset)+" "+
+(f[3]+1+offset)+"\n";
+
+}
+);
+
+return{
+text:text,
+count:vertices.length
 };
 
 }
@@ -1361,226 +2039,87 @@ return;
 
 }
 
-let text="# Hiro 3D Model Maker\n";
+let text=
+"# Hiro 3D Model Maker\n";
+
 let offset=0;
 
-objects.forEach(function(obj){
+objects.forEach(
+function(obj){
 
-text+="\n# "+obj.name+"\n";
+text+=
+"\n# "+
+obj.name+
+"\n";
+
+let result;
 
 if(obj.type==="cube"){
-
-const result=makeCubeOBJ(obj,offset);
-
-text+=result.text;
-offset+=result.count;
-
+result=makeCubeOBJ(
+obj,
+offset
+);
 }
 
 if(obj.type==="sphere"){
-
-const result=makeSphereOBJ(obj,offset);
-
-text+=result.text;
-offset+=result.count;
-
+result=makeSphereOBJ(
+obj,
+offset
+);
 }
 
 if(obj.type==="cylinder"){
+result=makeCylinderOBJ(
+obj,
+offset
+);
+}
 
-const result=makeCylinderOBJ(obj,offset);
+if(result){
 
 text+=result.text;
+
 offset+=result.count;
 
 }
 
-});
+}
+);
 
-const blob=new Blob(
+const blob=
+new Blob(
 [text],
 {type:"text/plain"}
 );
 
-const url=URL.createObjectURL(blob);
+const url=
+URL.createObjectURL(blob);
 
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=url;
-a.download="hiro_3d_model.obj";
+a.download=
+"hiro_3d_model.obj";
 
 document.body.appendChild(a);
+
 a.click();
+
 a.remove();
 
-setTimeout(function(){
+setTimeout(
+function(){
 URL.revokeObjectURL(url);
-},1000);
-
-}
-
-function makeSphereOBJ(obj,offset){
-
-const vertices=[];
-const fs=[];
-const lat=16;
-const lon=24;
-
-for(let i=0;i<=lat;i++){
-
-const v=i/lat;
-const theta=v*Math.PI;
-
-for(let j=0;j<lon;j++){
-
-const u=j/lon;
-const phi=u*Math.PI*2;
-
-let p={
-x:Math.sin(theta)*Math.cos(phi)*obj.sx,
-y:Math.cos(theta)*obj.sy,
-z:Math.sin(theta)*Math.sin(phi)*obj.sz
-};
-
-p=rotatePoint(
-p,
-obj.rx*Math.PI/180,
-obj.ry*Math.PI/180,
-obj.rz*Math.PI/180
+},
+1000
 );
 
-p.x+=obj.x;
-p.y+=obj.y;
-p.z+=obj.z;
-
-vertices.push(p);
-
 }
 
-}
-
-for(let i=0;i<lat;i++){
-
-for(let j=0;j<lon;j++){
-
-const a=i*lon+j;
-const b=i*lon+(j+1)%lon;
-const c=(i+1)*lon+(j+1)%lon;
-const d=(i+1)*lon+j;
-
-fs.push([a,b,c]);
-fs.push([a,c,d]);
-
-}
-
-}
-
-let text="";
-
-vertices.forEach(function(v){
-
-text+="v "+
-v.x.toFixed(5)+" "+
-v.y.toFixed(5)+" "+
-v.z.toFixed(5)+"\n";
-
-});
-
-fs.forEach(function(f){
-
-text+="f "+
-(f[0]+1+offset)+" "+
-(f[1]+1+offset)+" "+
-(f[2]+1+offset)+"\n";
-
-});
-
-return {
-text:text,
-count:vertices.length
-};
-
-}
-
-function makeCylinderOBJ(obj,offset){
-
-const vertices=[];
-const fs=[];
-const segments=24;
-
-for(let yIndex=0;yIndex<=1;yIndex++){
-
-const y=(yIndex-.5)*obj.sy;
-
-for(let i=0;i<segments;i++){
-
-const a=i/segments*Math.PI*2;
-
-let p={
-x:Math.cos(a)*.5*obj.sx,
-y:y,
-z:Math.sin(a)*.5*obj.sz
-};
-
-p=rotatePoint(
-p,
-obj.rx*Math.PI/180,
-obj.ry*Math.PI/180,
-obj.rz*Math.PI/180
-);
-
-p.x+=obj.x;
-p.y+=obj.y;
-p.z+=obj.z;
-
-vertices.push(p);
-
-}
-
-}
-
-for(let i=0;i<segments;i++){
-
-const n=(i+1)%segments;
-
-fs.push([
-i,
-n,
-segments+n,
-segments+i
-]);
-
-}
-
-let text="";
-
-vertices.forEach(function(v){
-
-text+="v "+
-v.x.toFixed(5)+" "+
-v.y.toFixed(5)+" "+
-v.z.toFixed(5)+"\n";
-
-});
-
-fs.forEach(function(f){
-
-text+="f "+
-(f[0]+1+offset)+" "+
-(f[1]+1+offset)+" "+
-(f[2]+1+offset)+" "+
-(f[3]+1+offset)+"\n";
-
-});
-
-return {
-text:text,
-count:vertices.length
-};
-
-}
-
-document.getElementById("exportButton").addEventListener(
+document.getElementById(
+"exportButton"
+).addEventListener(
 "click",
 exportOBJ
 );
