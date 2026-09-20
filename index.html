@@ -1905,114 +1905,6 @@ function roundJSON(n){
 return Number(n.toFixed(6));
 }
 
-function getFaceNormal(a,b,c){
-
-const ux=b[0]-a[0];
-const uy=b[1]-a[1];
-const uz=b[2]-a[2];
-
-const vx=c[0]-a[0];
-const vy=c[1]-a[1];
-const vz=c[2]-a[2];
-
-let nx=uy*vz-uz*vy;
-let ny=uz*vx-ux*vz;
-let nz=ux*vy-uy*vx;
-
-const len=Math.sqrt(nx*nx+ny*ny+nz*nz)||1;
-
-return[
-roundJSON(nx/len),
-roundJSON(ny/len),
-roundJSON(nz/len)
-];
-
-}
-
-function createPolyMesh(o){
-
-const positions=o.geometry.vertices.map(function(p){
-
-const q=rotatePoint(p,o);
-
-return[
-roundJSON(q.x),
-roundJSON(q.y),
-roundJSON(q.z)
-];
-
-});
-
-const normals=[];
-const uvs=[];
-const polys=[];
-
-for(let i=0;i<positions.length;i++){
-
-uvs.push([
-roundJSON((positions[i][0]+1)/2),
-roundJSON((positions[i][2]+1)/2)
-]);
-
-normals.push([0,1,0]);
-
-}
-
-o.geometry.faces.forEach(function(f){
-
-if(f.length===3){
-
-const n=getFaceNormal(
-positions[f[0]],
-positions[f[1]],
-positions[f[2]]
-);
-
-const ni=normals.length;
-
-normals.push(n);
-
-polys.push([
-[f[0],ni,f[0]],
-[f[1],ni,f[1]],
-[f[2],ni,f[2]]
-]);
-
-}
-
-else if(f.length===4){
-
-const n=getFaceNormal(
-positions[f[0]],
-positions[f[1]],
-positions[f[2]]
-);
-
-const ni=normals.length;
-
-normals.push(n);
-
-polys.push([
-[f[0],ni,f[0]],
-[f[1],ni,f[1]],
-[f[2],ni,f[2]],
-[f[3],ni,f[3]]
-]);
-
-}
-
-});
-
-return{
-normalized_uvs:true,
-positions:positions,
-normals:normals,
-uvs:uvs,
-polys:polys
-};
-
-}
-
 function exportJSON(){
 
 if(objects.length===0){
@@ -2034,32 +1926,119 @@ const bones=[];
 
 objects.forEach(function(o,index){
 
-const positions=o.geometry.vertices.map(function(p){
+let localMinX=Infinity;
+let localMinY=Infinity;
+let localMinZ=Infinity;
 
-return rotatePoint(p,o);
+let localMaxX=-Infinity;
+let localMaxY=-Infinity;
+let localMaxZ=-Infinity;
+
+o.geometry.vertices.forEach(function(p){
+
+const x=p.x*o.scale.x;
+const y=p.y*o.scale.y;
+const z=p.z*o.scale.z;
+
+localMinX=Math.min(localMinX,x);
+localMinY=Math.min(localMinY,y);
+localMinZ=Math.min(localMinZ,z);
+
+localMaxX=Math.max(localMaxX,x);
+localMaxY=Math.max(localMaxY,y);
+localMaxZ=Math.max(localMaxZ,z);
+
+const q=rotatePoint(p,o);
+
+minX=Math.min(minX,q.x);
+minY=Math.min(minY,q.y);
+minZ=Math.min(minZ,q.z);
+
+maxX=Math.max(maxX,q.x);
+maxY=Math.max(maxY,q.y);
+maxZ=Math.max(maxZ,q.z);
 
 });
 
-positions.forEach(function(p){
-
-minX=Math.min(minX,p.x);
-minY=Math.min(minY,p.y);
-minZ=Math.min(minZ,p.z);
-
-maxX=Math.max(maxX,p.x);
-maxY=Math.max(maxY,p.y);
-maxZ=Math.max(maxZ,p.z);
-
-});
+const sizeX=Math.max(.001,localMaxX-localMinX);
+const sizeY=Math.max(.001,localMaxY-localMinY);
+const sizeZ=Math.max(.001,localMaxZ-localMinZ);
 
 bones.push({
 name:"bb_"+index,
 pivot:[
-roundJSON(o.position.x),
-roundJSON(o.position.y),
-roundJSON(o.position.z)
+0,
+0,
+0
 ],
-poly_mesh:createPolyMesh(o)
+rotation:[
+roundJSON(o.rotation.x),
+roundJSON(o.rotation.y),
+roundJSON(o.rotation.z)
+],
+cubes:[
+{
+origin:[
+roundJSON(localMinX),
+roundJSON(localMinY),
+roundJSON(localMinZ)
+],
+size:[
+roundJSON(sizeX),
+roundJSON(sizeY),
+roundJSON(sizeZ)
+],
+pivot:[
+0,
+0,
+0
+],
+uv:{
+north:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeX),
+roundJSON(sizeY)
+]
+},
+east:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeZ),
+roundJSON(sizeY)
+]
+},
+south:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeX),
+roundJSON(sizeY)
+]
+},
+west:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeZ),
+roundJSON(sizeY)
+]
+},
+up:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeX),
+roundJSON(sizeZ)
+]
+},
+down:{
+uv:[0,0],
+uv_size:[
+roundJSON(sizeX),
+roundJSON(sizeZ)
+]
+}
+}
+}
+]
 });
 
 });
