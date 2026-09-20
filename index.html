@@ -1908,6 +1908,47 @@ URL.revokeObjectURL(url);
 
 document.getElementById("exportButton").onclick=exportOBJ;
 
+function roundJSON(n){
+
+return Number(n.toFixed(6));
+
+}
+
+function createBlockbenchUV(size){
+
+const sx=Math.max(1,Math.round(Math.abs(size[0])));
+const sy=Math.max(1,Math.round(Math.abs(size[1])));
+const sz=Math.max(1,Math.round(Math.abs(size[2])));
+
+return{
+north:{
+uv:[0,0],
+uv_size:[sx,sy]
+},
+east:{
+uv:[0,0],
+uv_size:[sz,sy]
+},
+south:{
+uv:[0,0],
+uv_size:[sx,sy]
+},
+west:{
+uv:[0,0],
+uv_size:[sz,sy]
+},
+up:{
+uv:[sx,sz],
+uv_size:[-sx,-sz]
+},
+down:{
+uv:[sx,sz],
+uv_size:[-sx,-sz]
+}
+};
+
+}
+
 function exportJSON(){
 
 if(objects.length===0){
@@ -1917,24 +1958,119 @@ return;
 
 }
 
-const data={
-name:"Hiro 3D Model Maker",
-objects:objects.map(function(o){
+const cubes=[];
 
-return{
-name:o.name,
-type:o.type,
-position:o.position,
-rotation:o.rotation,
-scale:o.scale,
-color:o.color,
-geometry:{
-vertices:o.geometry.vertices,
-faces:o.geometry.faces
+let minX=Infinity;
+let minY=Infinity;
+let minZ=Infinity;
+
+let maxX=-Infinity;
+let maxY=-Infinity;
+let maxZ=-Infinity;
+
+objects.forEach(function(o){
+
+const points=o.geometry.vertices.map(function(p){
+return rotatePoint(p,o);
+});
+
+if(!points.length)return;
+
+let objectMinX=Infinity;
+let objectMinY=Infinity;
+let objectMinZ=Infinity;
+
+let objectMaxX=-Infinity;
+let objectMaxY=-Infinity;
+let objectMaxZ=-Infinity;
+
+points.forEach(function(p){
+
+objectMinX=Math.min(objectMinX,p.x);
+objectMinY=Math.min(objectMinY,p.y);
+objectMinZ=Math.min(objectMinZ,p.z);
+
+objectMaxX=Math.max(objectMaxX,p.x);
+objectMaxY=Math.max(objectMaxY,p.y);
+objectMaxZ=Math.max(objectMaxZ,p.z);
+
+minX=Math.min(minX,p.x);
+minY=Math.min(minY,p.y);
+minZ=Math.min(minZ,p.z);
+
+maxX=Math.max(maxX,p.x);
+maxY=Math.max(maxY,p.y);
+maxZ=Math.max(maxZ,p.z);
+
+});
+
+const origin=[
+roundJSON(objectMinX),
+roundJSON(objectMinY),
+roundJSON(objectMinZ)
+];
+
+const size=[
+roundJSON(objectMaxX-objectMinX),
+roundJSON(objectMaxY-objectMinY),
+roundJSON(objectMaxZ-objectMinZ)
+];
+
+cubes.push({
+
+origin:origin,
+size:size,
+uv:createBlockbenchUV(size)
+
+});
+
+});
+
+if(!cubes.length){
+
+alert("JSONを作成できませんでした。");
+return;
+
 }
-};
 
-})
+const visibleWidth=Math.max(
+1,
+maxX-minX,
+maxZ-minZ
+);
+
+const visibleHeight=Math.max(
+1,
+maxY-minY
+);
+
+const visibleOffset=[
+roundJSON((minX+maxX)/2),
+roundJSON((minY+maxY)/2),
+roundJSON((minZ+maxZ)/2)
+];
+
+const data={
+format_version:"1.12.0",
+"minecraft:geometry":[
+{
+description:{
+identifier:"geometry.unknown",
+texture_width:16,
+texture_height:16,
+visible_bounds_width:roundJSON(visibleWidth),
+visible_bounds_height:roundJSON(visibleHeight),
+visible_bounds_offset:visibleOffset
+},
+bones:[
+{
+name:"bb_main",
+pivot:[0,0,0],
+cubes:cubes
+}
+]
+}
+]
 };
 
 const output=JSON.stringify(data,null,2);
