@@ -330,6 +330,7 @@ grid-template-columns:repeat(2,1fr);
 <button class="topButton" id="resetButton">視点</button>
 <button class="topButton" id="loadButton">ロード</button>
 <button class="topButton" id="exportButton">OBJ保存</button>
+<button class="topButton" id="jsonExportButton">JSON保存</button>
 <input id="loadInput" type="file" accept=".obj,text/plain">
 </div>
 
@@ -1906,6 +1907,61 @@ URL.revokeObjectURL(url);
 }
 
 document.getElementById("exportButton").onclick=exportOBJ;
+
+function exportJSON(){
+
+if(objects.length===0){
+
+alert("パーツがありません。");
+return;
+
+}
+
+const data={
+name:"Hiro 3D Model Maker",
+objects:objects.map(function(o){
+
+return{
+name:o.name,
+type:o.type,
+position:o.position,
+rotation:o.rotation,
+scale:o.scale,
+color:o.color,
+geometry:{
+vertices:o.geometry.vertices,
+faces:o.geometry.faces
+}
+};
+
+})
+};
+
+const output=JSON.stringify(data,null,2);
+
+const blob=new Blob(
+[output],
+{type:"application/json"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+a.download="hiro_3d_model.json";
+
+document.body.appendChild(a);
+a.click();
+a.remove();
+
+setTimeout(function(){
+URL.revokeObjectURL(url);
+},1000);
+
+}
+
+document.getElementById("jsonExportButton").onclick=exportJSON;
 
 function clearObjects(){
 
